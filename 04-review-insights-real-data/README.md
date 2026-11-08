@@ -27,6 +27,18 @@ python analyze_reviews.py data/reviews.csv --company "AurumCars" --lang en  # En
 ```
 With a Claude API key (`ANTHROPIC_API_KEY`), each review is classified by AI, which handles sarcasm and mixed topics much better. The report says which mode was used.
 
+### Optional: hand-checked labels, deep dive and ideas
+- **Hand-checked labels:** add columns `sentiment` and `categories` (e.g. `card_payment|car_availability`) to your CSV. If every row has them, the tool uses your labels instead of guessing, and the report says so.
+- **Deep dive:** collect a second CSV with only 1–2 star reviews and add `--deep-dive complaints.csv`. Review sites are usually skewed positive, so this shows what goes wrong when something goes wrong.
+- **Ideas:** write one idea per line in a text file and add `--ideas ideas.txt`. A line starting with "Einschränkung:" or "Limitation:" is shown as a note, not as an idea.
+- With fewer than 10 negative reviews, the report shows counts instead of percentages, so small numbers don't look bigger than they are.
+
+```bash
+python analyze_reviews.py data/reviews.csv --company "AurumCars" --deep-dive data/complaints.csv --ideas data/ideas.txt
+```
+
+Categories: `pickup_wait`, `car_condition`, `staff`, `upsell_pressure`, `card_payment`, `deposit_damage`, `car_availability`, `support_refund`, `booking_app`, `return`, `other`.
+
 ### 3. Check the results yourself (20 min)
 Open `output/aurumcars-labelled.csv` and read through the labels. Fix wrong ones by hand and run again with the corrected file if needed. The keyword rules are simple and will make mistakes. **Checking the AI's work is part of the job.** Mention it in the interview, because managers like hearing it.
 
