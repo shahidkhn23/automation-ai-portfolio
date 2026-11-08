@@ -12,7 +12,7 @@
 ☐ Sonstiges: ____________________
 
 ## Was es kostet
-Nichts. Laufende Kosten für KI-Nutzung (wenige Euro) trägt Shahid während des Tests.
+Nichts. Die KI läuft während des Tests über einen kostenlosen Zugang (Free Tier). Falls doch Kosten entstehen, trägt Shahid sie.
 
 ## Daten
 - Es wird nur verarbeitet, was für die Aufgabe nötig ist (z. B. Bewertungstext und Sterne).

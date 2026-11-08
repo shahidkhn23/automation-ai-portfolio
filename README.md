@@ -14,6 +14,18 @@ Five projects around one fictional company, **Rentora** (car rental, Germany). I
 
 ---
 
+## Run everything for free
+
+| Part | Free option |
+|---|---|
+| AI agent (03) | Runs offline with no key. For a real model: free Groq key (`GROQ_API_KEY`), no credit card |
+| n8n workflow (01) | Self-hosted n8n Community edition (Docker) + `workflow-free-groq.json` |
+| Zapier flow (02) | Build it during the 14-day Professional trial (no card) |
+| Review analysis (04) | Runs offline, no key needed |
+| Videos | Loom free plan (5 min per video, 25 videos) or OBS Studio |
+
+Free tiers have rate limits and change over time. Check the provider's page if something stops working.
+
 ## Before you apply: checklist
 
 1. Put each project in its own **public GitHub repo** (or one repo with three folders, like this one).

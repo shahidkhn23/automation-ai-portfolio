@@ -46,7 +46,7 @@ AGENT_MODE=mock python evals/run_evals.py
 | Backend | Score |
 |---|---|
 | MockLLM (offline, rule-based) | 15/15 |
-| Claude API | _not run yet — add your score after running with an API key_ |
+| Groq or Claude API | _not run yet — add your score after running with a key_ |
 
 ## Run it
 
@@ -57,11 +57,18 @@ python agent.py                     # CLI chat
 python server.py                    # web chat with tool trace → http://localhost:8000
 python -m unittest discover tests   # unit tests
 
-# with a real model
+# with a real model, free: Groq (no credit card, key at console.groq.com)
+export GROQ_API_KEY=gsk_...
+export LLM_MODEL=openai/gpt-oss-120b      # optional, any Groq model with tool calling
+python server.py
+
+# or with Claude
 export ANTHROPIC_API_KEY=sk-ant-...
-export ANTHROPIC_MODEL=claude-sonnet-5-5   # optional
 python server.py
 ```
+
+On Windows (PowerShell) use `$env:GROQ_API_KEY="gsk_..."` instead of `export`.
+Any OpenAI-compatible API works too (e.g. a local Ollama): set `LLM_API_KEY` and `LLM_BASE_URL`.
 
 Without an API key it runs on `MockLLM`, a rule-based planner with the same interface, so anyone can try it in 10 seconds.
 

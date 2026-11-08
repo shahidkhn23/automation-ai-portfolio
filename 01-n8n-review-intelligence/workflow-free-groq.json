@@ -1,0 +1,449 @@
+{
+  "name": "Customer Review Intelligence (DE/EN) — free Groq version",
+  "nodes": [
+    {
+      "id": "note1",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -120,
+        -260
+      ],
+      "parameters": {
+        "width": 520,
+        "height": 200,
+        "content": "## Flow 1: Real-time review triage\nPOST a review to the webhook → AI classifies (DE/EN) → logged to Google Sheets → Slack alert if urgent → JSON response with reply draft.\n\nSetup: Groq (free) = Header Auth credential (Authorization: Bearer gsk_...), Google Sheets + Slack OAuth. Sheet tab must be named **Reviews**."
+      }
+    },
+    {
+      "id": "webhook",
+      "name": "Review Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "b1f6c1e2-review-intake",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "review-intake",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "normalize",
+      "name": "Normalize & Validate",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const SYSTEM = `You analyse customer reviews for a car rental company in Germany.\nReviews can be German or English. Return ONLY a JSON object with these keys:\n- language: \"de\" | \"en\" | \"other\"\n- sentiment: \"positive\" | \"neutral\" | \"negative\"\n- category: one of \"pickup_wait\", \"car_condition\", \"staff\", \"pricing_fees\", \"booking_app\", \"damage_claim\", \"safety\", \"other\"\n- urgency: \"low\" | \"medium\" | \"high\"  (high = safety issue, legal threat, or angry repeat customer)\n- summary_en: one short English sentence\n- reply_draft: a polite reply in the SAME language as the review, max 70 words, no promises of refunds`;\n\nreturn $input.all().map((item, i) => {\n  const b = item.json.body ?? item.json;\n  const text = String(b.text ?? b.review ?? '').trim().slice(0, 4000);\n  const rating = Number(b.rating);\n  return {\n    json: {\n      review_id: b.review_id ?? `rev_${Date.now()}_${i}`,\n      source: b.source ?? 'unknown',\n      author: b.author ?? 'anonymous',\n      branch: b.branch ?? 'unknown',\n      rating: Number.isFinite(rating) ? Math.min(5, Math.max(1, rating)) : null,\n      text,\n      valid: text.length >= 3,\n      received_at: new Date().toISOString(),\n      openai_body: {\n        model: 'openai/gpt-oss-120b',\n        temperature: 0.2,\n        response_format: { type: 'json_object' },\n        messages: [\n          { role: 'system', content: SYSTEM },\n          { role: 'user', content: `Rating: ${Number.isFinite(rating) ? rating : 'n/a'}/5\\nBranch: ${b.branch ?? 'unknown'}\\nReview: ${text}` }\n        ]\n      }\n    }\n  };\n});\n"
+      }
+    },
+    {
+      "id": "aiclassifyopenai",
+      "name": "AI Classify (OpenAI)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        440,
+        0
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.openai_body) }}",
+        "options": {
+          "timeout": 30000
+        }
+      }
+    },
+    {
+      "id": "parse",
+      "name": "Parse AI + Route",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const base = $('Normalize & Validate').all();\nconst ALLOWED = {\n  sentiment: ['positive', 'neutral', 'negative'],\n  urgency: ['low', 'medium', 'high'],\n  category: ['pickup_wait', 'car_condition', 'staff', 'pricing_fees', 'booking_app', 'damage_claim', 'safety', 'other'],\n};\n\nreturn $input.all().map((item, i) => {\n  const r = base[i].json;\n  let ai = null, ai_error = '';\n  try {\n    ai = JSON.parse(item.json.choices[0].message.content);\n    for (const [k, vals] of Object.entries(ALLOWED)) {\n      if (!vals.includes(ai[k])) throw new Error(`invalid ${k}: ${ai[k]}`);\n    }\n  } catch (e) {\n    ai_error = item.json.error ? 'OpenAI request failed' : `Parse error: ${e.message}`;\n    ai = null;\n  }\n  // Fallback: never lose a review just because the AI step failed\n  const fallbackSentiment = r.rating == null ? 'neutral' : r.rating <= 2 ? 'negative' : r.rating >= 4 ? 'positive' : 'neutral';\n  const out = {\n    review_id: r.review_id,\n    received_at: r.received_at,\n    source: r.source,\n    branch: r.branch,\n    author: r.author,\n    rating: r.rating,\n    text: r.text,\n    language: ai?.language ?? 'unknown',\n    sentiment: ai?.sentiment ?? fallbackSentiment,\n    category: ai?.category ?? 'other',\n    urgency: ai?.urgency ?? (r.rating != null && r.rating <= 2 ? 'medium' : 'low'),\n    summary_en: ai?.summary_en ?? '',\n    reply_draft: ai?.reply_draft ?? '',\n    ai_status: ai ? 'ok' : 'fallback',\n    ai_error,\n  };\n  out.needs_escalation =\n    out.urgency === 'high' ||\n    out.category === 'safety' ||\n    (out.sentiment === 'negative' && (out.rating ?? 5) <= 2) ||\n    out.ai_status === 'fallback';\n  return { json: out };\n});\n"
+      }
+    },
+    {
+      "id": "respond",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        880,
+        0
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ ok: true, review_id: $json.review_id, sentiment: $json.sentiment, category: $json.category, urgency: $json.urgency, escalated: $json.needs_escalation, reply_draft: $json.reply_draft }) }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "sheetlog",
+      "name": "Log to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1100,
+        0
+      ],
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "url",
+          "value": "PASTE_YOUR_GOOGLE_SHEET_URL"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Reviews"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "ifesc",
+      "name": "Needs escalation?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1320,
+        0
+      ],
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.needs_escalation }}",
+              "value2": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "slack",
+      "name": "Alert Team on Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        1540,
+        -100
+      ],
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "mode": "name",
+          "value": "#customer-alerts"
+        },
+        "text": "=:rotating_light: *{{ $json.urgency.toUpperCase() }}* review at *{{ $json.branch }}* ({{ $json.rating ?? \"?\" }}/5, {{ $json.category }})\n> {{ $json.summary_en || $json.text.slice(0, 200) }}\nSuggested reply ({{ $json.language }}): {{ $json.reply_draft }}\nAI status: {{ $json.ai_status }}",
+        "otherOptions": {}
+      }
+    },
+    {
+      "id": "note2",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -120,
+        260
+      ],
+      "parameters": {
+        "width": 520,
+        "height": 160,
+        "content": "## Flow 2: Weekly product briefing\nEvery Monday 08:00 → read last 7 days from the sheet → stats by sentiment, category, branch → AI writes a 150-word briefing → HTML email to the product team."
+      }
+    },
+    {
+      "id": "schedule",
+      "name": "Every Monday 08:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        480
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "sheetread",
+      "name": "Read Reviews",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        220,
+        480
+      ],
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "url",
+          "value": "PASTE_YOUR_GOOGLE_SHEET_URL"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Reviews"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "weekly",
+      "name": "Build Weekly Stats",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        480
+      ],
+      "parameters": {
+        "jsCode": "const weekAgo = Date.now() - 7 * 24 * 3600 * 1000;\nconst rows = $input.all().map(i => i.json).filter(r => Date.parse(r.received_at) >= weekAgo);\n\nconst count = (key) => rows.reduce((acc, r) => { acc[r[key]] = (acc[r[key]] || 0) + 1; return acc; }, {});\nconst rated = rows.filter(r => Number(r.rating) > 0);\nconst avg = rated.length ? (rated.reduce((s, r) => s + Number(r.rating), 0) / rated.length).toFixed(2) : 'n/a';\nconst negatives = rows.filter(r => r.sentiment === 'negative');\nconst byBranch = {};\nfor (const r of rows) {\n  byBranch[r.branch] ??= { total: 0, negative: 0 };\n  byBranch[r.branch].total++;\n  if (r.sentiment === 'negative') byBranch[r.branch].negative++;\n}\n\nconst stats = {\n  period_start: new Date(weekAgo).toISOString().slice(0, 10),\n  period_end: new Date().toISOString().slice(0, 10),\n  total: rows.length,\n  avg_rating: avg,\n  sentiment: count('sentiment'),\n  categories: count('category'),\n  by_branch: byBranch,\n  escalated: rows.filter(r => String(r.needs_escalation) === 'true').length,\n  negative_examples: negatives.slice(0, 8).map(r => `[${r.branch}, ${r.category}] ${r.summary_en || r.text.slice(0, 160)}`),\n};\n\nreturn [{\n  json: {\n    stats,\n    openai_body: {\n      model: 'openai/gpt-oss-120b',\n      temperature: 0.3,\n      messages: [\n        { role: 'system', content: 'You write a short weekly customer-feedback briefing for a product manager at a car rental company. Use plain English, max 150 words: 1) headline trend, 2) top 2 problems with numbers, 3) one concrete product or process suggestion. No fluff.' },\n        { role: 'user', content: JSON.stringify(stats) }\n      ]\n    }\n  }\n}];\n"
+      }
+    },
+    {
+      "id": "aiweeklysummary",
+      "name": "AI Weekly Summary",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        660,
+        480
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.openai_body) }}",
+        "options": {
+          "timeout": 30000
+        }
+      }
+    },
+    {
+      "id": "email",
+      "name": "Format Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        480
+      ],
+      "parameters": {
+        "jsCode": "const s = $('Build Weekly Stats').first().json.stats;\nconst summary = $input.first().json.choices?.[0]?.message?.content ?? '(AI summary unavailable this week)';\nconst esc = (t) => String(t).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));\nconst table = (obj) => Object.entries(obj).sort((a, b) => b[1] - a[1])\n  .map(([k, v]) => `<tr><td style=\"padding:4px 12px 4px 0\">${esc(k)}</td><td><b>${v}</b></td></tr>`).join('');\nconst branches = Object.entries(s.by_branch)\n  .map(([b, v]) => `<tr><td style=\"padding:4px 12px 4px 0\">${esc(b)}</td><td>${v.total} reviews, ${v.negative} negative</td></tr>`).join('');\n\nconst html = `\n<div style=\"font-family:Arial,sans-serif;max-width:620px\">\n  <h2 style=\"margin-bottom:4px\">Weekly Review Briefing</h2>\n  <p style=\"color:#666;margin-top:0\">${s.period_start} to ${s.period_end} · ${s.total} reviews · avg rating ${s.avg_rating} · ${s.escalated} escalated</p>\n  <div style=\"background:#f3f6ff;padding:12px 16px;border-radius:8px;white-space:pre-wrap\">${esc(summary)}</div>\n  <h3>Sentiment</h3><table>${table(s.sentiment)}</table>\n  <h3>Top categories</h3><table>${table(s.categories)}</table>\n  <h3>By branch</h3><table>${branches}</table>\n  <p style=\"color:#999;font-size:12px\">Generated automatically by n8n.</p>\n</div>`;\nreturn [{ json: { subject: `Review briefing ${s.period_end}: ${s.total} reviews, avg ${s.avg_rating}`, html } }];\n"
+      }
+    },
+    {
+      "id": "gmail",
+      "name": "Send Briefing (Gmail)",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1100,
+        480
+      ],
+      "parameters": {
+        "sendTo": "product-team@example.com",
+        "subject": "={{ $json.subject }}",
+        "emailType": "html",
+        "message": "={{ $json.html }}",
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "Review Webhook": {
+      "main": [
+        [
+          {
+            "node": "Normalize & Validate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize & Validate": {
+      "main": [
+        [
+          {
+            "node": "AI Classify (OpenAI)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Classify (OpenAI)": {
+      "main": [
+        [
+          {
+            "node": "Parse AI + Route",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse AI + Route": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        [
+          {
+            "node": "Log to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log to Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Needs escalation?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Needs escalation?": {
+      "main": [
+        [
+          {
+            "node": "Alert Team on Slack",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Every Monday 08:00": {
+      "main": [
+        [
+          {
+            "node": "Read Reviews",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Reviews": {
+      "main": [
+        [
+          {
+            "node": "Build Weekly Stats",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Weekly Stats": {
+      "main": [
+        [
+          {
+            "node": "AI Weekly Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Weekly Summary": {
+      "main": [
+        [
+          {
+            "node": "Format Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Email": {
+      "main": [
+        [
+          {
+            "node": "Send Briefing (Gmail)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": []
+}

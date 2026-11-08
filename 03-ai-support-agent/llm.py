@@ -1,6 +1,7 @@
 """LLM backends.
 
 AnthropicLLM  - real model via the Claude Messages API (stdlib urllib, no SDK needed)
+OpenAICompatLLM - any OpenAI-compatible API. Default: Groq, which has a free tier (no card)
 MockLLM       - offline rule-based planner with the same interface, so the demo,
                 tests and evals run without an API key.
 
@@ -49,6 +50,68 @@ class AnthropicLLM:
                 for b in content if b["type"] == "tool_use"
             ],
         }
+
+
+class OpenAICompatLLM:
+    """Talks to OpenAI-style chat APIs (Groq, OpenAI, local Ollama) and converts
+    to/from the Anthropic-style messages the agent uses internally."""
+
+    def __init__(self, api_key, base_url=None, model=None):
+        self.api_key = api_key
+        self.url = (base_url or os.getenv("LLM_BASE_URL", "https://api.groq.com/openai/v1")).rstrip("/") + "/chat/completions"
+        self.model = model or os.getenv("LLM_MODEL", "openai/gpt-oss-120b")
+
+    @staticmethod
+    def _to_openai(system, messages):
+        out = [{"role": "system", "content": system}]
+        for m in messages:
+            c = m["content"]
+            if isinstance(c, str):
+                out.append({"role": m["role"], "content": c})
+            elif m["role"] == "assistant":
+                text = "".join(b["text"] for b in c if b["type"] == "text")
+                calls = [{"id": b["id"], "type": "function",
+                          "function": {"name": b["name"], "arguments": json.dumps(b["input"], ensure_ascii=False)}}
+                         for b in c if b["type"] == "tool_use"]
+                msg = {"role": "assistant", "content": text or None}
+                if calls:
+                    msg["tool_calls"] = calls
+                out.append(msg)
+            else:  # tool results
+                for b in c:
+                    if b.get("type") == "tool_result":
+                        out.append({"role": "tool", "tool_call_id": b["tool_use_id"], "content": b["content"]})
+        return out
+
+    def complete(self, system, messages, tools):
+        body = json.dumps({
+            "model": self.model,
+            "max_tokens": 1024,
+            "temperature": 0.2,
+            "messages": self._to_openai(system, messages),
+            "tools": [{"type": "function", "function": {"name": t["name"], "description": t["description"],
+                                                         "parameters": t["input_schema"]}} for t in tools],
+        }).encode()
+        req = urllib.request.Request(self.url, data=body, method="POST", headers={
+            "Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json",
+            "User-Agent": "rentora-support-agent/1.0"})
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                data = json.loads(r.read())
+        except urllib.error.HTTPError as e:
+            raise RuntimeError(f"API error {e.code}: {e.read().decode()[:300]}") from e
+        msg = data["choices"][0]["message"]
+        text = msg.get("content") or ""
+        content = [{"type": "text", "text": text}] if text else []
+        calls = []
+        for tc in msg.get("tool_calls") or []:
+            try:
+                args = json.loads(tc["function"].get("arguments") or "{}")
+            except json.JSONDecodeError:
+                args = {}
+            calls.append({"id": tc["id"], "name": tc["function"]["name"], "input": args})
+            content.append({"type": "tool_use", "id": tc["id"], "name": tc["function"]["name"], "input": args})
+        return {"content": content or [{"type": "text", "text": ""}], "text": text, "tool_calls": calls}
 
 
 # --------------------------------------------------------------------------
@@ -158,7 +221,14 @@ class MockLLM:
 
 
 def get_llm():
-    key = os.getenv("ANTHROPIC_API_KEY")
-    if key and os.getenv("AGENT_MODE", "").lower() != "mock":
-        return AnthropicLLM(key)
+    """Picks the backend: AGENT_MODE=mock forces offline mode. Otherwise the first key found wins:
+    GROQ_API_KEY (free tier) -> LLM_API_KEY (any OpenAI-compatible API) -> ANTHROPIC_API_KEY -> offline mock."""
+    if os.getenv("AGENT_MODE", "").lower() == "mock":
+        return MockLLM()
+    if os.getenv("GROQ_API_KEY"):
+        return OpenAICompatLLM(os.environ["GROQ_API_KEY"])
+    if os.getenv("LLM_API_KEY"):
+        return OpenAICompatLLM(os.environ["LLM_API_KEY"])
+    if os.getenv("ANTHROPIC_API_KEY"):
+        return AnthropicLLM(os.environ["ANTHROPIC_API_KEY"])
     return MockLLM()
