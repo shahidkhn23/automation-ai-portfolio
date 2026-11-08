@@ -4,7 +4,7 @@ Five projects around one fictional company, **Rentora** (car rental, Germany). I
 
 | # | Project | Tools | Business problem |
 |---|---|---|---|
-| 01 | [Customer Review Intelligence](01-n8n-review-intelligence) | n8n, OpenAI, Google Sheets, Slack, Gmail | Bilingual reviews read by hand, urgent ones missed, no weekly insight |
+| 01 | [Customer Review Intelligence](01-n8n-review-intelligence) | n8n, LLM via Groq (free) or OpenAI, Google Sheets, Slack, Gmail | Bilingual reviews read by hand, urgent ones missed, no weekly insight |
 | 02 | [Event Lead Autopilot](02-zapier-event-lead-autopilot) | Zapier, AI by Zapier, Google Forms/Sheets/Calendar, Gmail, Slack | Manual sign-up handling, generic emails, sales hears about hot leads too late |
 | 03 | [Rentora Support Agent](03-ai-support-agent) | Python, Claude API, tool calling, BM25 retrieval, evals | Support questions about policies, availability and bookings in DE/EN |
 | 04 | [Review Insights on Real Data](04-review-insights-real-data) | Python, Claude API (optional) | Understand a real company's customers from public reviews before the interview |
@@ -47,7 +47,7 @@ Free tiers have rate limits and change over time. Check the provider's page if s
 - Datenschutz-Guardrail umgesetzt: Buchungsdaten nur bei passendem Nachnamen; Eskalation an Mitarbeitende bei Unfällen und Beschwerden
 - Evaluations-Suite mit 15 Testfällen aufgebaut (Tool-Auswahl, Fakten, Datenlecks); Ergebnis: _X/15_
 
-**Review-Intelligence-Workflow** · n8n, OpenAI, Google Sheets, Slack | github.com/…
+**Review-Intelligence-Workflow** · n8n, LLM (Groq/OpenAI), Google Sheets, Slack | github.com/…
 - n8n-Workflow, der deutsche und englische Kundenbewertungen automatisch nach Stimmung, Kategorie und Dringlichkeit klassifiziert und Antwortentwürfe erstellt
 - Dringende Fälle (Sicherheit, rechtliche Drohungen) lösen sofort Slack-Alerts aus; Fallback-Logik bei KI-Fehlern
 - Wöchentliches KI-Briefing per E-Mail mit Kennzahlen nach Filiale und Kategorie für das Produktteam
@@ -65,7 +65,7 @@ Free tiers have rate limits and change over time. Check the provider's page if s
 - Implemented a privacy guardrail in code (booking data only with matching last name) and escalation for accidents and complaints
 - Wrote a 15-case evaluation suite covering tool choice, factual accuracy and data leaks; score: _X/15_
 
-**Review Intelligence Workflow** · n8n, OpenAI, Google Sheets, Slack
+**Review Intelligence Workflow** · n8n, LLM (Groq/OpenAI), Google Sheets, Slack
 - Automated classification of German and English reviews by sentiment, category and urgency, with reply drafts in the customer's language
 - Real-time Slack alerts for safety and legal issues; rule-based fallback when the AI step fails
 - Weekly AI-written briefing email with metrics by branch and category for the product team

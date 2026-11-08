@@ -1,4 +1,4 @@
-# Customer Review Intelligence — n8n + OpenAI
+# Customer Review Intelligence — n8n + LLM (Groq or OpenAI)
 
 An n8n automation that turns raw customer reviews (German and English) into **structured data, urgent alerts and a weekly product briefing**, for a (fictional) car rental company.
 
@@ -15,7 +15,7 @@ The problem: reviews arrive from Google, Trustpilot and app stores in two langua
 **Flow 1 — real-time triage (webhook)**
 1. A review is POSTed to the webhook
 2. Code node cleans and validates the input
-3. OpenAI (`gpt-4o-mini`, JSON mode) returns language, sentiment, category, urgency, an English summary and a reply draft *in the customer's language*
+3. An LLM (tested with Groq `openai/gpt-oss-120b`; OpenAI `gpt-4o-mini` in `workflow.json`) returns language, sentiment, category, urgency, an English summary and a reply draft *in the customer's language*
 4. The AI output is validated against allowed values. **If the AI call fails or returns junk, a rule-based fallback is used and the review is flagged for a human**, so nothing is lost
 5. The caller gets a JSON response immediately
 6. Every review is logged to Google Sheets
