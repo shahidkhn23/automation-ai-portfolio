@@ -1,0 +1,7 @@
+[
+  {"booking_id": "RNT-1001", "last_name": "Becker",  "car_id": "MUC-01", "start_date": "2026-12-01", "end_date": "2026-12-05", "status": "confirmed", "rate": "Flex"},
+  {"booking_id": "RNT-1002", "last_name": "Yilmaz",  "car_id": "MUC-03", "start_date": "2026-12-03", "end_date": "2026-12-10", "status": "confirmed", "rate": "Saver"},
+  {"booking_id": "RNT-1003", "last_name": "Novak",   "car_id": "BER-02", "start_date": "2026-11-20", "end_date": "2026-11-22", "status": "confirmed", "rate": "Flex"},
+  {"booking_id": "RNT-1004", "last_name": "Schmidt", "car_id": "MUC-04", "start_date": "2026-12-02", "end_date": "2026-12-04", "status": "confirmed", "rate": "Flex"},
+  {"booking_id": "RNT-1005", "last_name": "Okafor",  "car_id": "HAM-02", "start_date": "2026-11-28", "end_date": "2026-12-01", "status": "cancelled", "rate": "Flex"}
+]

@@ -1,0 +1,7 @@
+Full name,Email,Language,Type,Organisation,Goal,Consent,Expected result
+lena hoffmann,Lena.Hoffmann@example.com,Deutsch,Student,TH Rosenheim,Ich möchte Leute aus der Mobilitätsbranche kennenlernen und mehr über Produktmanagement erfahren,Yes,Path B - German email
+MARK JENKINS,mark.jenkins@example.com,English,Company / Unternehmen,FleetLogix GmbH,We manage 300 company cars and are looking for a flexible rental partner,Yes,Path A - Slack alert
+aylin demir,aylin.demir@example.com,Deutsch,Professional,Reisebüro Sonnenweg,Firmenkunden-Angebote für Geschäftsreisen verstehen,Yes,Path A or B depending on score
+tom becker,tom.becker@example.com,English,Student,LMU München,Just curious,Yes,Path B - English email
+sofia rossi,sofia.rossi@example.com,English,Professional,Travel startup,Partnership options for our booking app,Yes,Path A - Slack alert
+no consent test,noconsent@example.com,English,Student,-,Testing the filter,,Stopped at Filter

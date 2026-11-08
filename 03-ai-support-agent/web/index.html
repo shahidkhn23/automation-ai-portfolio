@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Rentora Support Agent</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; background: #f4f5f7; color: #1d1f23; }
+  main { display: grid; grid-template-columns: 1fr 380px; height: 100vh; }
+  #chat { display: flex; flex-direction: column; padding: 24px; overflow: hidden; }
+  h1 { font-size: 18px; margin: 0 0 12px; }
+  #log { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+  .msg { max-width: 75%; padding: 10px 14px; border-radius: 12px; white-space: pre-wrap; line-height: 1.4; }
+  .user { align-self: flex-end; background: #1f4fd8; color: #fff; }
+  .bot { align-self: flex-start; background: #fff; border: 1px solid #dde0e6; }
+  form { display: flex; gap: 8px; margin-top: 12px; }
+  input { flex: 1; padding: 12px; border: 1px solid #c9ced8; border-radius: 8px; font-size: 15px; }
+  button { padding: 0 18px; border: 0; border-radius: 8px; background: #1f4fd8; color: #fff; font-size: 15px; cursor: pointer; }
+  aside { background: #11141a; color: #cfd6e4; padding: 20px; overflow-y: auto; font: 12px/1.5 ui-monospace, monospace; }
+  aside h2 { font: 600 13px system-ui; color: #fff; margin: 0 0 12px; }
+  .call { border-left: 3px solid #4f8cff; padding: 6px 10px; margin-bottom: 10px; background: #1a1f29; }
+  .call b { color: #8fb4ff; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .chips button { background: #e6eaf3; color: #1d1f23; font-size: 13px; padding: 6px 10px; }
+</style>
+</head>
+<body>
+<main>
+  <section id="chat">
+    <h1>Rentora Support Agent <small style="font-weight:400;color:#666">— demo, fictional company</small></h1>
+    <div class="chips">
+      <button type="button">What deposit do I pay for an SUV?</button>
+      <button type="button">Ich brauche ein Auto in München vom 2026-12-02 bis 2026-12-04</button>
+      <button type="button">Status of RNT-1001, last name Becker</button>
+      <button type="button">I had an accident with booking RNT-1002</button>
+    </div>
+    <div id="log"></div>
+    <form id="f"><input id="q" placeholder="Ask in English or German…" autocomplete="off"><button>Send</button></form>
+  </section>
+  <aside><h2>Agent trace (tool calls)</h2><div id="trace"></div></aside>
+</main>
+<script>
+  let session = null;
+  const log = document.getElementById('log'), trace = document.getElementById('trace');
+  function add(text, cls) { const d = document.createElement('div'); d.className = 'msg ' + cls; d.textContent = text; log.appendChild(d); log.scrollTop = log.scrollHeight; }
+  async function send(text) {
+    add(text, 'user');
+    const res = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ session, message: text }) });
+    const data = await res.json(); session = data.session;
+    data.trace.forEach(t => { const c = document.createElement('div'); c.className = 'call';
+      c.innerHTML = '<b></b><div class="i"></div><div class="o"></div>';
+      c.querySelector('b').textContent = t.tool;
+      c.querySelector('.i').textContent = 'in:  ' + JSON.stringify(t.input);
+      c.querySelector('.o').textContent = 'out: ' + JSON.stringify(t.output).slice(0, 400);
+      trace.prepend(c); });
+    add(data.answer, 'bot');
+  }
+  document.getElementById('f').onsubmit = e => { e.preventDefault(); const q = document.getElementById('q'); if (q.value.trim()) { send(q.value.trim()); q.value = ''; } };
+  document.querySelectorAll('.chips button').forEach(b => b.onclick = () => send(b.textContent));
+</script>
+</body>
+</html>

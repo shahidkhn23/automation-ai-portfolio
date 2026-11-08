@@ -1,0 +1,14 @@
+[
+  {"car_id": "MUC-01", "city": "Munich",    "model": "VW Polo",         "category": "Economy", "price_per_day": 39},
+  {"car_id": "MUC-02", "city": "Munich",    "model": "VW Golf",         "category": "Compact", "price_per_day": 49},
+  {"car_id": "MUC-03", "city": "Munich",    "model": "BMW X1",          "category": "SUV",     "price_per_day": 79},
+  {"car_id": "MUC-04", "city": "Munich",    "model": "BMW 5 Series",    "category": "Premium", "price_per_day": 129},
+  {"car_id": "MUC-05", "city": "Munich",    "model": "Tesla Model 3",   "category": "Premium", "price_per_day": 119},
+  {"car_id": "BER-01", "city": "Berlin",    "model": "Opel Corsa",      "category": "Economy", "price_per_day": 35},
+  {"car_id": "BER-02", "city": "Berlin",    "model": "Skoda Octavia",   "category": "Compact", "price_per_day": 47},
+  {"car_id": "BER-03", "city": "Berlin",    "model": "Ford Transit",    "category": "Van",     "price_per_day": 89},
+  {"car_id": "HAM-01", "city": "Hamburg",   "model": "Seat Ibiza",      "category": "Economy", "price_per_day": 36},
+  {"car_id": "HAM-02", "city": "Hamburg",   "model": "VW Tiguan",       "category": "SUV",     "price_per_day": 75},
+  {"car_id": "NUE-01", "city": "Nuremberg", "model": "Fiat 500",        "category": "Economy", "price_per_day": 33},
+  {"car_id": "NUE-02", "city": "Nuremberg", "model": "Mercedes C-Class","category": "Premium", "price_per_day": 115}
+]
