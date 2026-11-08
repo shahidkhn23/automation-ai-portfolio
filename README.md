@@ -1,6 +1,6 @@
 # Shahid — Automation & AI Portfolio
 
-Five projects around one fictional company, **Rentora** (car rental, Germany). In the first three, the support agent answers customers, the n8n flow listens to what they say in reviews, and the Zapier flow turns event sign-ups into leads. The last two take this into the real world: analysing real public reviews, and running a pilot with a real business.
+Five projects around one fictional company, **Rentora** (car rental, Germany). In the first three, the support agent answers customers, the n8n flow listens to what they say in reviews, and the Zapier flow turns event sign-ups into leads. The last two take this into the real world: analysing real public reviews, and running a pilot with a real business. Project 06 is independent: it checks contracts and answers questions about students' rights in Germany, based on 50 hand-verified legal rules.
 
 | # | Project | Tools | Business problem |
 |---|---|---|---|
@@ -9,6 +9,7 @@ Five projects around one fictional company, **Rentora** (car rental, Germany). I
 | 03 | [Rentora Support Agent](03-ai-support-agent) | Python, Claude API, tool calling, BM25 retrieval, evals | Support questions about policies, availability and bookings in DE/EN |
 | 04 | [Review Insights on Real Data](04-review-insights-real-data) | Python, Claude API (optional) | Understand a real company's customers from public reviews before the interview |
 | 05 | [Real Pilot Kit](05-real-pilot-kit) | Process, German templates | Get a real business to use project 01 or 02 for 3 weeks, measure it, get a reference |
+| 06 | [Student Rights Check](06-student-rights-check) | Python, BM25 retrieval, rule engine, Claude API (optional), 50 tests | Students in Germany sign contracts they don't understand and don't know their rights |
 
 **Projects 01–03 show you can build. 04 and 05 show it works in the real world.** That's what a manager is really asking about.
 
