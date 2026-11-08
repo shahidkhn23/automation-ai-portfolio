@@ -28,6 +28,14 @@ Every Monday 08:00: reads the last 7 days from the sheet → counts by sentiment
 - **Human in the loop**: AI drafts replies, a person sends them
 - Cheap model for classification; costs a fraction of a cent per review
 
+## Run it for free
+Two things normally cost money here: n8n Cloud and the OpenAI key. Both have free alternatives:
+- **n8n:** the self-hosted Community edition is free. Install Docker Desktop, then run
+  `docker run -it --rm -p 5678:5678 -v n8n_data:/home/node/.n8n n8nio/n8n` and open http://localhost:5678.
+- **AI model:** import **`workflow-free-groq.json`** instead of `workflow.json`. It calls Groq, which has a free tier without a credit card. Create a key at console.groq.com and use it in a *Header Auth* credential: name `Authorization`, value `Bearer gsk_...`.
+- The model is set in the "Normalize & Validate" and "Build Weekly Stats" nodes (`openai/gpt-oss-120b`). If Groq has renamed or removed it, pick another model from the list at console.groq.com and change it there. If you get an error about `response_format`, delete that line in "Normalize & Validate"; the parse step already handles messy output.
+- Free tiers have rate limits. Fine for testing with the sample reviews, not for thousands of reviews.
+
 ## Setup (about 15 minutes)
 1. n8n Cloud trial or self-hosted (`docker run -it --rm -p 5678:5678 n8nio/n8n`)
 2. *Workflows → Import from File →* `workflow.json`
