@@ -3,10 +3,12 @@
   python -m rightscheck check samples/wg_mietvertrag.txt [--json] [--ai] [--lang Deutsch]
   python -m rightscheck ask "My landlord entered my room without asking" [--json] [--ai]
   python -m rightscheck topics
+  python -m rightscheck agent "Is this okay? Write my landlord a message." --file lease.txt [--trace]
 """
 
 import argparse
 import json
+import os
 import sys
 
 from . import check, to_markdown
@@ -52,9 +54,24 @@ def cmd_topics(args) -> int:
     return 0
 
 
+def cmd_agent(args) -> int:
+    if not os.getenv("ANTHROPIC_API_KEY"):
+        print("The agent needs ANTHROPIC_API_KEY. Without a key, use 'check' and 'ask'.", file=sys.stderr)
+        return 1
+    from .agent import run_agent
+    document = read_document(args.file) if args.file else None
+    out = run_agent(args.message, document)
+    if args.trace:
+        for step in out["trace"]:
+            print(f"[tool] {step['tool']} {json.dumps(step['input'], ensure_ascii=False)}")
+        print(f"[grounded] {out['grounded']}\n")
+    print(out["answer"])
+    return 0
+
+
 def main(argv=None) -> int:
     argv = list(sys.argv[1:] if argv is None else argv)
-    if argv and argv[0] not in {"check", "ask", "topics", "-h", "--help"}:
+    if argv and argv[0] not in {"check", "ask", "topics", "agent", "-h", "--help"}:
         argv.insert(0, "check")       # old style: python -m rightscheck file.txt
 
     p = argparse.ArgumentParser(prog="rightscheck", description="Know your rights as a student in Germany.")
@@ -69,9 +86,13 @@ def main(argv=None) -> int:
         sp.add_argument("--ai", action="store_true", help="plain-language AI explanation (needs ANTHROPIC_API_KEY)")
         sp.add_argument("--lang", default="English", help="language for the AI explanation")
     sub.add_parser("topics", help="list every right the tool knows")
+    g = sub.add_parser("agent", help="AI agent that decides which tools to use (needs ANTHROPIC_API_KEY)")
+    g.add_argument("message")
+    g.add_argument("--file", help="contract or letter to check")
+    g.add_argument("--trace", action="store_true", help="show which tools the agent called")
 
     args = p.parse_args(argv)
-    return {"check": cmd_check, "ask": cmd_ask, "topics": cmd_topics}[args.cmd](args)
+    return {"check": cmd_check, "ask": cmd_ask, "topics": cmd_topics, "agent": cmd_agent}[args.cmd](args)
 
 
 if __name__ == "__main__":
