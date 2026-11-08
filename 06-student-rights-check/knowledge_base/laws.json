@@ -1,0 +1,957 @@
+{
+  "_meta": {
+    "description": "Verified general legal information for students in Germany, used by Student Rights Check. Every statement the tool makes must come from this file. Nothing here is advice for an individual case.",
+    "last_verified": "2026-11-08",
+    "verified_by": "Manual check against law texts and official/authoritative sources listed in each entry",
+    "region_note": "Federal law applies everywhere. University (exam) rules are verified for Bavaria (RaPO / BayHIG / AGVwGO); housing values marked 'München' are Munich-specific."
+  },
+  "areas": {
+    "exams": "Studies & exams",
+    "work": "Werkstudent, Minijob & internships",
+    "international": "International students",
+    "housing": "Housing & WG",
+    "money": "Money: BAföG, Kindergeld, tax, fees",
+    "health": "Health insurance",
+    "consumer": "Contracts & online shopping",
+    "data": "Data protection",
+    "discrimination": "Discrimination",
+    "copyright": "Warning letters (Abmahnung)"
+  },
+  "rules": {
+    "exam_sick_withdrawal": {
+      "area": "exams",
+      "law": "§ 9 Abs. 3 RaPO (Bayern)",
+      "title": "Sick on exam day: withdraw immediately with a doctor's certificate",
+      "summary": "At Bavarian universities of applied sciences, the reasons for withdrawing from or missing an exam must be reported to the university immediately (unverzüglich) in writing and made credible. For illness you need a medical certificate based on an examination that, as a rule, took place on the exam day itself. Courts apply a strict standard: reporting weeks later is too late. Many universities accept the certificate up to the third day after the exam, but check your own APO.",
+      "keywords": [
+        "sick",
+        "ill",
+        "illness",
+        "exam",
+        "attest",
+        "medical certificate",
+        "withdraw",
+        "missed exam",
+        "rücktritt",
+        "prüfungsunfähig",
+        "krank",
+        "prüfung"
+      ],
+      "source": "https://www.th-ab.de/fileadmin/th-ab-redaktion/dokumente/Studienbuero/Pruefungen/pabeschluss-pruefungsruecktritt.pdf"
+    },
+    "exam_appeal": {
+      "area": "exams",
+      "law": "Art. 12 Abs. 1 Satz 1 Nr. 6 AGVwGO (Bayern)",
+      "title": "Disagree with an exam decision: objection or lawsuit, your choice",
+      "summary": "In Bavaria, against a personal exam decision (e.g. a failed exam) you may choose to either file an objection (Widerspruch) with the university or go directly to the administrative court. The deadline is normally one month and is stated in the legal remedy notice (Rechtsbehelfsbelehrung) of the decision. Against an exmatriculation after finally failing, only a lawsuit is possible (Art. 12 Abs. 2 AGVwGO).",
+      "keywords": [
+        "grade",
+        "fail",
+        "failed",
+        "appeal",
+        "objection",
+        "widerspruch",
+        "note",
+        "bewertung",
+        "exam result",
+        "klage",
+        "exmatrikulation",
+        "durchgefallen"
+      ],
+      "source": "https://www.gesetze-bayern.de/Content/Pdf/BayAGVwGO-12?all=False"
+    },
+    "exam_inspection": {
+      "area": "exams",
+      "law": "Prüfungsordnung (APO/SPO) + § 29 VwVfG / Art. 29 BayVwVfG",
+      "title": "You can usually see your marked exam",
+      "summary": "An exam is an administrative procedure. Exam regulations normally give students the right to inspect their marked exam, the examiner's comments and oral exam protocols after the result is published. Where and how long you can do this is set in your university's exam regulations, so check your APO/SPO and ask the exam office. Inspecting your exam is usually the first step before an objection.",
+      "keywords": [
+        "see exam",
+        "inspect",
+        "einsicht",
+        "prüfungseinsicht",
+        "marked exam",
+        "korrektur",
+        "klausur",
+        "akteneinsicht"
+      ],
+      "source": "https://www.gesetze-im-internet.de/vwvfg/__29.html"
+    },
+    "exam_disadvantage_comp": {
+      "area": "exams",
+      "law": "BayHIG + Prüfungsordnung; Art. 3 GG",
+      "title": "Chronic illness or disability: you can apply for Nachteilsausgleich",
+      "summary": "Students with a disability or chronic (also psychological) illness can apply for adjustments in exams (Nachteilsausgleich), e.g. more time or a separate room. In Bavaria this follows from the Bavarian Higher Education Innovation Act (BayHIG) and the exam regulations. You apply in advance with a medical certificate. A short-term illness is not a reason for Nachteilsausgleich; then withdrawing from the exam is the right path.",
+      "keywords": [
+        "disability",
+        "chronic",
+        "adhd",
+        "dyslexia",
+        "extra time",
+        "nachteilsausgleich",
+        "behinderung",
+        "chronische krankheit",
+        "more time"
+      ],
+      "source": "https://www.uni-regensburg.de/studieren/beratung-hilfe/studieren-mit-beeintraechtigung/studium-und-pruefungen/nachteilsausgleich"
+    },
+    "exam_maternity": {
+      "area": "exams",
+      "law": "§ 1 Abs. 2 Nr. 8, § 3 MuSchG",
+      "title": "Pregnant students are protected by the Maternity Protection Act",
+      "summary": "Since 2018 the Maternity Protection Act also applies to students. During the protection period (normally 6 weeks before and 8 weeks after birth) you have the right not to take exams and are exempt from compulsory courses, excursions and lab work. You can choose to take part anyway with a written declaration, which you can withdraw at any time.",
+      "keywords": [
+        "pregnant",
+        "pregnancy",
+        "baby",
+        "maternity",
+        "mutterschutz",
+        "schwanger",
+        "birth"
+      ],
+      "source": "https://www.gesetze-im-internet.de/muschg_2018/__3.html"
+    },
+    "minimum_wage": {
+      "area": "work",
+      "law": "§ 1 MiLoG i.V.m. § 1 MiLoV5",
+      "title": "Minimum wage applies to Werkstudenten and Minijobs too",
+      "summary": "The statutory minimum wage is 13.90 EUR gross per hour from 1 January 2026 and 14.60 EUR from 1 January 2027. It applies to working students and mini-jobbers as well.",
+      "values": {
+        "2026": 13.9,
+        "2027": 14.6
+      },
+      "keywords": [
+        "minimum wage",
+        "mindestlohn",
+        "hourly",
+        "pay",
+        "salary",
+        "lohn",
+        "stundenlohn",
+        "underpaid",
+        "wage"
+      ],
+      "source": "https://www.gesetze-im-internet.de/milov5/BJNR10C0A0025.html"
+    },
+    "internship_wage": {
+      "area": "work",
+      "law": "§ 22 Abs. 1 MiLoG",
+      "title": "Internships: when you must get minimum wage",
+      "summary": "Interns are generally entitled to minimum wage. Exceptions: a compulsory internship required by your study regulations, an orientation internship of up to 3 months before studies, and a first voluntary internship of up to 3 months alongside your studies with the same company. A voluntary internship longer than 3 months must be paid minimum wage from day one.",
+      "keywords": [
+        "internship",
+        "intern",
+        "praktikum",
+        "pflichtpraktikum",
+        "unpaid",
+        "praktikant"
+      ],
+      "source": "https://www.gesetze-im-internet.de/milog/__22.html"
+    },
+    "werkstudent_20h": {
+      "area": "work",
+      "law": "Werkstudentenprivileg (§ 6 Abs. 1 Nr. 3 SGB V, § 27 Abs. 4 SGB III)",
+      "title": "Werkstudent: max. 20 hours a week during the semester",
+      "summary": "As a Werkstudent you pay no health, care or unemployment insurance contributions from your job (only pension insurance) as long as you work no more than 20 hours a week during the lecture period. More hours are fine in the semester break, at evenings, nights or weekends, but in total not more than 26 weeks a year above 20 hours. The amount you earn does not matter.",
+      "keywords": [
+        "20 hours",
+        "werkstudent",
+        "hours",
+        "how many hours",
+        "stunden",
+        "semester break",
+        "26 weeks",
+        "sozialversicherung"
+      ],
+      "source": "https://www.deutsche-rentenversicherung.de/DRV/DE/Experten/Arbeitgeber-und-Steuerberater/summa-summarum/Lexikon/W/werkstudentenprivileg.html"
+    },
+    "minijob_limit": {
+      "area": "work",
+      "law": "§ 8 Abs. 1a SGB IV",
+      "title": "Minijob earnings limit: 603 EUR a month in 2026",
+      "summary": "A Minijob may pay on average at most 603 EUR a month in 2026 (7,236 EUR a year) and 633 EUR from 2027. The limit is linked to the minimum wage. Minijobbers have the same rights as other employees: paid holiday, sick pay, minimum wage.",
+      "values": {
+        "2026": 603,
+        "2027": 633
+      },
+      "keywords": [
+        "minijob",
+        "603",
+        "556",
+        "mini job",
+        "earnings limit",
+        "geringfügig",
+        "verdienstgrenze"
+      ],
+      "source": "https://www.deutsche-rentenversicherung.de/BadenWuerttemberg/DE/Presse/Pressemitteilungen/2025/251222_Minijob.html"
+    },
+    "sick_pay": {
+      "area": "work",
+      "law": "§ 3 EFZG",
+      "title": "Sick pay: up to 6 weeks, also for Werkstudenten and Minijobs",
+      "summary": "If you cannot work because of illness, your employer must keep paying your wage for up to six weeks per illness. The right starts after the job has lasted four weeks without interruption. It applies to part-time, Werkstudent and Minijob employees just like full-time staff.",
+      "keywords": [
+        "sick",
+        "sick pay",
+        "lohnfortzahlung",
+        "entgeltfortzahlung",
+        "krank",
+        "krankmeldung",
+        "ill at work",
+        "sick leave"
+      ],
+      "source": "https://www.gesetze-im-internet.de/entgfg/__3.html"
+    },
+    "minimum_vacation": {
+      "area": "work",
+      "law": "§ 3 BUrlG",
+      "title": "Minimum paid holiday: 4 weeks per year, also part-time",
+      "summary": "Every employee, including Werkstudenten and Minijobbers, has at least 24 working days of paid holiday per year based on a 6-day week. For fewer working days it is calculated pro rata: days per week x 24 / 6 (e.g. 2 days a week = 8 days, 3 days = 12 days, 5 days = 20 days).",
+      "keywords": [
+        "holiday",
+        "vacation",
+        "urlaub",
+        "days off",
+        "paid leave",
+        "urlaubstage"
+      ],
+      "source": "https://www.gesetze-im-internet.de/burlg/__3.html"
+    },
+    "probation_max": {
+      "area": "work",
+      "law": "§ 622 Abs. 1 und 3 BGB",
+      "title": "Notice periods: 2 weeks in probation (max. 6 months), then 4 weeks",
+      "summary": "During an agreed probation period, the job can be ended with two weeks' notice, but for at most six months. After that the normal notice period applies: four weeks to the 15th or the end of a month.",
+      "keywords": [
+        "probation",
+        "probezeit",
+        "notice period",
+        "kündigungsfrist",
+        "quit",
+        "fired",
+        "terminate job"
+      ],
+      "source": "https://www.gesetze-im-internet.de/bgb/__622.html"
+    },
+    "written_termination": {
+      "area": "work",
+      "law": "§ 623 BGB",
+      "title": "Termination of a job must be on paper and signed",
+      "summary": "Ending an employment relationship by notice or termination agreement requires written form (signed paper). Electronic form is excluded, so a termination by e-mail or WhatsApp is not valid.",
+      "keywords": [
+        "fired by email",
+        "whatsapp",
+        "termination",
+        "kündigung",
+        "schriftform",
+        "quit by email",
+        "dismissed"
+      ],
+      "source": "https://www.gesetze-im-internet.de/bgb/__623.html"
+    },
+    "payslip_reference": {
+      "area": "work",
+      "law": "§ 108, § 109 GewO",
+      "title": "You have a right to a payslip and a job reference",
+      "summary": "With every wage payment you are entitled to a payslip in text form showing the period and how your pay is made up. When the job ends, you are entitled to a reference (Arbeitszeugnis); on request a qualified one that also rates your performance and conduct. This also applies to student jobs.",
+      "keywords": [
+        "payslip",
+        "lohnabrechnung",
+        "abrechnung",
+        "reference",
+        "zeugnis",
+        "arbeitszeugnis",
+        "certificate of employment"
+      ],
+      "source": "https://www.gesetze-im-internet.de/gewo/__109.html"
+    },
+    "working_hours": {
+      "area": "work",
+      "law": "§ 3, § 4, § 5 ArbZG",
+      "title": "Working time: max. 8 (10) hours a day, breaks, 11 hours rest",
+      "summary": "Working time may normally not exceed 8 hours per working day; up to 10 hours are allowed if the average over 6 months stays at 8. If you work more than 6 hours you need at least 30 minutes break (45 minutes above 9 hours); you may not work more than 6 hours in a row without a break. Breaks can be split into blocks of at least 15 minutes. Between two shifts you need at least 11 hours of rest.",
+      "keywords": [
+        "break",
+        "pause",
+        "working hours",
+        "shift",
+        "long shift",
+        "overtime",
+        "arbeitszeit",
+        "ruhezeit",
+        "10 hours",
+        "12 hours",
+        "rest"
+      ],
+      "source": "https://www.gesetze-im-internet.de/arbzg/__4.html"
+    },
+    "short_term_job": {
+      "area": "work",
+      "law": "§ 8 Abs. 1 Nr. 2 SGB IV",
+      "title": "Holiday job: up to 3 months or 70 working days without social contributions",
+      "summary": "A short-term job (kurzfristige Beschäftigung), e.g. a semester-break job, is free of social insurance contributions if it is limited in advance to at most 3 months or 70 working days in a calendar year, regardless of pay. All short-term jobs in the year are added up. It is still taxable, but you can usually get the tax back with a tax return.",
+      "keywords": [
+        "holiday job",
+        "ferienjob",
+        "summer job",
+        "semester break job",
+        "kurzfristig",
+        "70 days",
+        "seasonal",
+        "aushilfe",
+        "temporary job"
+      ],
+      "source": "https://www.deutsche-rentenversicherung.de/DRV/DE/Ueber-uns-und-Presse/Presse/Meldungen/2026/260603-ferienjobs-sind-sozialabgabenfrei"
+    },
+    "equal_pay_parttime": {
+      "area": "work",
+      "law": "§ 4 Abs. 1 TzBfG; BAG 5 AZR 108/22",
+      "title": "Same job, same hourly pay: Minijobbers can't be paid less",
+      "summary": "Part-time employees, including Minijobbers and working students, may not be treated worse than comparable full-time staff without an objective reason. The Federal Labour Court decided in January 2023 that a Minijobber with the same qualification and the same tasks must get the same hourly wage as full-time colleagues.",
+      "keywords": [
+        "less pay",
+        "paid less",
+        "same pay",
+        "equal pay",
+        "gleicher lohn",
+        "full-time colleagues",
+        "teilzeit",
+        "lower wage"
+      ],
+      "source": "https://www.dbb.de/arbeitnehmende/rechtsprechung/arbeitsvertragsrecht/minijobbende.html"
+    },
+    "interview_questions": {
+      "area": "work",
+      "law": "§§ 1, 7 AGG; BAG case law",
+      "title": "Job interview: forbidden questions and the 'right to lie'",
+      "summary": "Employers may only ask questions related to the job. Questions about pregnancy or family planning, religion, sexual orientation, party or union membership are generally not allowed. If you are asked such a question, you may refuse or even answer untruthfully (the courts' 'right to lie') without the employer being able to cancel your contract later for that reason. Questions about qualifications, languages or work permit are allowed and must be answered truthfully.",
+      "keywords": [
+        "interview",
+        "job interview",
+        "vorstellungsgespräch",
+        "pregnant interview",
+        "illegal question",
+        "forbidden question",
+        "right to lie",
+        "bewerbungsgespräch"
+      ],
+      "source": "https://www.stepstone.de/magazin/artikel/unzulaessige-fragen-im-bewerbungsgespraech"
+    },
+    "intl_work_days": {
+      "area": "international",
+      "law": "§ 16b Abs. 3 AufenthG",
+      "title": "Non-EU students: 140 full or 280 half working days per year",
+      "summary": "With a student residence permit (§ 16b AufenthG) you may work up to 140 full days or 280 half days per calendar year without approval of the employment agency. A half day is up to 4 hours. Student assistant jobs at the university (studentische Nebentätigkeit) are not counted. Voluntary internships count, compulsory internships do not. Working more than allowed can put your permit at risk, so ask the Ausländerbehörde or the international office if unsure.",
+      "keywords": [
+        "international",
+        "visa",
+        "non-eu",
+        "140 days",
+        "280",
+        "work permit",
+        "residence permit",
+        "aufenthalt",
+        "16b",
+        "how much can i work",
+        "ausländerbehörde"
+      ],
+      "source": "https://www.gesetze-im-internet.de/aufenthg_2004/__16b.html"
+    },
+    "deposit_max": {
+      "area": "housing",
+      "law": "§ 551 Abs. 1 und 4 BGB",
+      "title": "Deposit is capped at 3 months' cold rent",
+      "summary": "For a flat or WG room, the deposit (Kaution) may be at most three times the monthly rent without operating costs (Nettokaltmiete). An agreement that is worse for the tenant is invalid, and you can claim back the part above the limit.",
+      "keywords": [
+        "deposit",
+        "kaution",
+        "security",
+        "mietsicherheit",
+        "too high deposit"
+      ],
+      "source": "https://www.gesetze-im-internet.de/bgb/__551.html"
+    },
+    "deposit_installments": {
+      "area": "housing",
+      "law": "§ 551 Abs. 2 und 3 BGB",
+      "title": "You may pay the deposit in 3 monthly parts",
+      "summary": "If the deposit is a sum of money, the tenant is entitled to pay it in three equal monthly instalments. The first is due when the tenancy starts, the others together with the next rent payments. The landlord must keep the deposit separate from his own money in a bank account. A clause demanding the full amount up front cannot take this right away.",
+      "keywords": [
+        "deposit",
+        "instalments",
+        "raten",
+        "kaution",
+        "pay deposit",
+        "cash deposit"
+      ],
+      "source": "https://www.gesetze-im-internet.de/bgb/__551.html"
+    },
+    "deposit_return": {
+      "area": "housing",
+      "law": "§ 548 BGB; BGH VIII ZR 71/05",
+      "title": "Getting your deposit back after moving out",
+      "summary": "There is no fixed legal deadline for returning the deposit. The landlord gets a reasonable time to check his claims, usually about 3 to 6 months, sometimes longer if a utility bill (Nebenkostenabrechnung) is still due, for which he may keep a reasonable part. His claims for damage to the flat expire six months after he gets the flat back (§ 548 BGB). After that time, ask in writing for a deposit statement and payment with a deadline. Your own claim expires after three years.",
+      "keywords": [
+        "deposit back",
+        "kaution zurück",
+        "return deposit",
+        "kept my deposit",
+        "moved out",
+        "after moving out",
+        "kautionsrückzahlung",
+        "auszug",
+        "refund deposit"
+      ],
+      "source": "https://www.gesetze-im-internet.de/bgb/__548.html"
+    },
+    "tenant_notice": {
+      "area": "housing",
+      "law": "§ 573c Abs. 1 und 4 BGB",
+      "title": "Tenant notice period is 3 months",
+      "summary": "A tenant can give notice by the third working day of a month, effective at the end of the month after next (about 3 months). A longer notice period to the tenant's disadvantage is invalid. Exceptions exist, e.g. for furnished rooms inside the landlord's own flat (§ 549 Abs. 2 Nr. 2 BGB) and for agreed waivers of notice, so this one is worth getting checked.",
+      "keywords": [
+        "move out",
+        "notice",
+        "kündigen",
+        "cancel lease",
+        "kündigungsfrist",
+        "leave flat",
+        "end tenancy"
+      ],
+      "source": "https://www.gesetze-im-internet.de/bgb/__573c.html"
+    },
+    "rent_brake": {
+      "area": "housing",
+      "law": "§ 556d BGB + Bayerische Mieterschutzverordnung",
+      "region": "München and 284 other Bavarian municipalities",
+      "title": "Mietpreisbremse: new rent max. 10% above local comparative rent",
+      "summary": "In areas with a tight housing market, the rent at the start of a new tenancy may be at most 10% above the local comparative rent (in Munich: the Mietspiegel). In Bavaria this applies in 285 cities and municipalities including Munich and is extended until 31 December 2029. Exceptions exist (new buildings first rented after 1 Oct 2014, comprehensive modernisation, higher previous rent), and the landlord must tell you about them before signing.",
+      "keywords": [
+        "rent too high",
+        "mietpreisbremse",
+        "mietspiegel",
+        "expensive rent",
+        "miete zu hoch",
+        "rent cap",
+        "munich rent"
+      ],
+      "source": "https://www.justiz.bayern.de/presse-und-medien/pressemitteilungen/archiv/2025/150.php"
+    },
+    "rent_increase_cap": {
+      "area": "housing",
+      "law": "§ 558 Abs. 3 BGB + Bayerische Mieterschutzverordnung",
+      "region": "München",
+      "title": "Rent increase cap: max. 15% in 3 years in Munich",
+      "summary": "In an ongoing tenancy the landlord can ask you to agree to an increase up to the local comparative rent, but in Munich (and other listed Bavarian municipalities) the rent may not rise by more than 15% within three years (instead of 20% elsewhere). Increases due to modernisation follow other rules.",
+      "values": {
+        "cap_percent": 15
+      },
+      "keywords": [
+        "rent increase",
+        "mieterhöhung",
+        "kappungsgrenze",
+        "landlord raises rent",
+        "raise rent",
+        "higher rent",
+        "miete erhöhen",
+        "erhöhen",
+        "erhöhung",
+        "increase"
+      ],
+      "source": "https://www.justiz.bayern.de/presse-und-medien/pressemitteilungen/archiv/2025/150.php"
+    },
+    "rent_reduction": {
+      "area": "housing",
+      "law": "§ 536, § 536c BGB",
+      "title": "Defects (mould, pests, no heating): the rent is reduced by law",
+      "summary": "If the flat has a defect that reduces its use, e.g. mould, a pest infestation (cockroaches, mice, bedbugs) or no heating, the rent is reduced by law for as long as the defect exists. You must report the defect to the landlord immediately; if you do not, you can lose the right to reduce. In residential leases this right cannot be excluded by contract (§ 536 Abs. 4 BGB). How much you may reduce depends on the case, and paying too little can risk a termination, so get advice before cutting the rent.",
+      "keywords": [
+        "mould",
+        "schimmel",
+        "cockroach",
+        "kakerlaken",
+        "pests",
+        "mice",
+        "bedbugs",
+        "heating",
+        "defect",
+        "mangel",
+        "mietminderung",
+        "reduce rent",
+        "broken"
+      ],
+      "source": "https://www.gesetze-im-internet.de/bgb/__536.html"
+    },
+    "landlord_entry": {
+      "area": "housing",
+      "law": "Hausrecht des Mieters; § 307 BGB; Rechtsprechung",
+      "title": "Your landlord may not enter your room without your consent",
+      "summary": "Once you rent a flat or room, you hold the right to decide who enters. The landlord needs a concrete reason (e.g. repairs, meter reading, viewing for a sale), must announce the visit in advance (often at least 24 hours, for viewings longer) and needs your consent. Only in a real emergency (burst pipe, gas leak, fire) may he enter without asking. Contract clauses allowing entry at any time without notice are invalid.",
+      "keywords": [
+        "landlord enter",
+        "enter my room",
+        "betreten",
+        "besichtigung",
+        "privacy",
+        "key",
+        "schlüssel",
+        "come in",
+        "visit"
+      ],
+      "source": "https://www.berliner-mieterverein.de/magazin/online/mm0726/betretungsrecht-vermietender.htm"
+    },
+    "sublet": {
+      "area": "housing",
+      "law": "§ 553 BGB",
+      "title": "Subletting part of your flat: you can ask for permission",
+      "summary": "If after signing the lease you get a legitimate interest (e.g. saving money, a semester abroad), you can demand the landlord's permission to sublet part of your flat. You always need the permission first. Since a BGH ruling of January 2026, subletting to make a profit is not a legitimate interest. A clause that excludes this right is invalid (§ 553 Abs. 3 BGB).",
+      "keywords": [
+        "sublet",
+        "untervermietung",
+        "untermiete",
+        "semester abroad",
+        "rent out room",
+        "zwischenmiete"
+      ],
+      "source": "https://www.gesetze-im-internet.de/bgb/__553.html"
+    },
+    "registration": {
+      "area": "housing",
+      "law": "§ 17, § 19 BMG",
+      "title": "Register your address within 2 weeks; the landlord must confirm",
+      "summary": "When you move into a flat, you must register at the registration office (Bürgerbüro / KVR in Munich) within two weeks. The landlord or main tenant must give you a Wohnungsgeberbestätigung within two weeks; a rental contract does not replace it. Missing these duties can be fined up to 1,000 EUR, on both sides.",
+      "keywords": [
+        "anmeldung",
+        "register",
+        "address",
+        "wohnungsgeberbestätigung",
+        "kvr",
+        "bürgeramt",
+        "meldebestätigung",
+        "registration"
+      ],
+      "source": "https://www.gesetze-im-internet.de/bmg/__17.html"
+    },
+    "cosmetic_repairs": {
+      "area": "housing",
+      "law": "§ 307, § 535 BGB; BGH VIII ZR 185/14, VIII ZR 361/03",
+      "title": "Moved into an unrenovated flat: you usually don't have to paint when you leave",
+      "summary": "If you got the flat or room unrenovated and without fair compensation, a standard clause making you do the cosmetic repairs (painting, wallpapering) is invalid (BGH, 18 March 2015). Clauses with rigid schedules (e.g. 'kitchen every 3 years') are also invalid, as are clauses making you pay a share of future repairs when you move out early. Then the landlord can only demand the flat back in the state you received it. You must be able to prove that it was unrenovated, so take photos at move-in.",
+      "keywords": [
+        "painting",
+        "paint",
+        "renovate",
+        "renovation",
+        "schönheitsreparaturen",
+        "streichen",
+        "renovieren",
+        "move out",
+        "wallpaper",
+        "tapezieren",
+        "auszug"
+      ],
+      "source": "https://www.lto.de/recht/hintergruende/h/bgh-urteil-viii-zr-185-14-und-viii-zr-242-13-schoenheitsreparaturen/2"
+    },
+    "utility_bill": {
+      "area": "housing",
+      "law": "§ 556 Abs. 3 BGB",
+      "title": "Utility bill (Nebenkostenabrechnung): 12-month deadlines for both sides",
+      "summary": "The landlord must send the utility bill at the latest 12 months after the end of the billing period. If it arrives later, he can usually no longer demand extra payments (unless he is not responsible for the delay). You in turn have 12 months after receiving the bill to raise objections; after that you generally cannot. You may ask to see the receipts before you pay.",
+      "keywords": [
+        "nebenkosten",
+        "betriebskosten",
+        "utility bill",
+        "utilities",
+        "heating bill",
+        "abrechnung",
+        "nachzahlung",
+        "extra payment",
+        "additional costs",
+        "nebenkostenabrechnung",
+        "betriebskostenabrechnung",
+        "late bill",
+        "too late"
+      ],
+      "source": "https://www.gesetze-im-internet.de/bgb/__556.html"
+    },
+    "fixed_term_lease": {
+      "area": "housing",
+      "law": "§ 575 BGB",
+      "title": "Fixed-term lease only with a written reason, otherwise it is open-ended",
+      "summary": "A residential lease can only be limited in time if the landlord tells you a legal reason in writing when signing (e.g. he wants to live there himself or will renovate/demolish). Without such a reason the lease counts as open-ended, and you can give the normal 3-month notice. Furnished rooms in the landlord's own flat and short-term rentals follow different rules.",
+      "keywords": [
+        "fixed term",
+        "befristet",
+        "zeitmietvertrag",
+        "limited contract",
+        "until",
+        "end date",
+        "lease ends"
+      ],
+      "source": "https://www.gesetze-im-internet.de/bgb/__575.html"
+    },
+    "landlord_termination": {
+      "area": "housing",
+      "law": "§ 573, § 573c Abs. 1 BGB",
+      "title": "The landlord needs a legal reason to give you notice",
+      "summary": "In a normal (open-ended) lease the landlord can only give ordinary notice if he has a legitimate interest, e.g. personal need (Eigenbedarf) or serious breaches by the tenant. Notice to raise the rent is not allowed. His notice period is at least 3 months and grows to 6 months after 5 years and 9 months after 8 years. Exceptions apply to furnished rooms in the landlord's own flat.",
+      "keywords": [
+        "landlord gives notice",
+        "kicked out",
+        "eigenbedarf",
+        "evict",
+        "eviction",
+        "kündigung vermieter",
+        "rauswurf",
+        "landlord cancel",
+        "have to leave"
+      ],
+      "source": "https://www.gesetze-im-internet.de/bgb/__573.html"
+    },
+    "tenant_selfdisclosure": {
+      "area": "housing",
+      "law": "AGG; Art. 13, 15 DSGVO",
+      "title": "Flat applications: some questions a landlord may not ask",
+      "summary": "In a tenant self-disclosure (Mieterselbstauskunft) landlords may ask about income, profession, household size and pets. Questions about religion, ethnic origin or political views are not allowed. You also have the right to know which of your data the landlord stores, why and for how long.",
+      "keywords": [
+        "selbstauskunft",
+        "application",
+        "flat application",
+        "landlord questions",
+        "schufa",
+        "wohnungsbewerbung",
+        "questions"
+      ],
+      "source": "https://www.arag.de/rechtsschutzversicherung/mietrechtsschutz/rechte-wohnungssuche-bewerbung/"
+    },
+    "bafoeg": {
+      "area": "money",
+      "law": "§ 13, § 13a BAföG",
+      "title": "BAföG: up to 992 EUR a month in 2026",
+      "summary": "The maximum BAföG for students not living with their parents is 992 EUR a month (475 EUR basic need + 380 EUR housing + health/care insurance supplement). Half is a grant, half an interest-free loan. BAföG is not paid retroactively before the month you apply, so apply early. A reform with higher rates is planned; according to the government draft of August 2026 the first increase comes on 1 April 2027 (not yet law).",
+      "values": {
+        "max_2026": 992
+      },
+      "keywords": [
+        "bafög",
+        "bafoeg",
+        "student loan",
+        "funding",
+        "financial aid",
+        "money",
+        "study finance"
+      ],
+      "source": "https://www.gesetze-im-internet.de/baf_g/__13.html"
+    },
+    "kindergeld": {
+      "area": "money",
+      "law": "§ 32 Abs. 4, § 66 EStG",
+      "title": "Kindergeld continues during studies until age 25",
+      "summary": "Parents receive Kindergeld of 259 EUR a month (2026) for a child in education or university studies up to the 25th birthday. During a first degree, side jobs do not affect it. Kindergeld is only paid retroactively for 6 months from the application.",
+      "values": {
+        "2026": 259
+      },
+      "keywords": [
+        "kindergeld",
+        "child benefit",
+        "parents",
+        "25",
+        "familienkasse"
+      ],
+      "source": "https://www.gesetze-im-internet.de/estg/__66.html"
+    },
+    "broadcast_fee": {
+      "area": "money",
+      "law": "§ 4 Abs. 1 Nr. 5 und Abs. 6 RBStV",
+      "title": "Rundfunkbeitrag: exemption with BAföG (not living with parents)",
+      "summary": "The broadcasting fee (18.36 EUR a month per flat) applies to every household. Students who receive BAföG and do not live with their parents can apply to be exempt. Without BAföG, a hardship application (Härtefall) is possible if your income is very low. In a WG the fee is paid once per flat, so share it.",
+      "keywords": [
+        "rundfunkbeitrag",
+        "gez",
+        "broadcast fee",
+        "tv fee",
+        "18.36",
+        "beitragsservice"
+      ],
+      "source": "https://www.studierendenwerke.de/themen/finanzierungsmoeglichkeiten/verguenstigungen"
+    },
+    "tax_refund": {
+      "area": "money",
+      "law": "§ 32a EStG (Grundfreibetrag)",
+      "title": "Student job: you can often get your wage tax back",
+      "summary": "Up to 12,348 EUR taxable income in 2026 no income tax is due for a single person. If wage tax was deducted from your student job, you can usually get it back by filing a tax return (Einkommensteuererklärung) for that year, e.g. via ELSTER. You can file voluntarily for the past four years.",
+      "values": {
+        "2026": 12348
+      },
+      "keywords": [
+        "tax",
+        "steuer",
+        "tax return",
+        "lohnsteuer",
+        "refund",
+        "steuererklärung",
+        "elster",
+        "grundfreibetrag",
+        "taxed",
+        "taxes",
+        "income tax",
+        "salary tax",
+        "wage tax"
+      ],
+      "source": "https://www.gesetze-im-internet.de/estg/__32a.html"
+    },
+    "wohngeld": {
+      "area": "money",
+      "law": "§ 20 Abs. 2 WoGG",
+      "title": "Wohngeld: only if you are not eligible for BAföG in principle",
+      "summary": "Students who are eligible for BAföG in principle get no housing benefit (Wohngeld), even if they receive no BAföG because their parents earn too much. Wohngeld is possible if BAföG is excluded in principle (e.g. age limit exceeded, maximum funding period over, late change of subject) or if BAföG is paid only as a full loan. You first need a BAföG rejection 'dem Grunde nach' from the BAföG office.",
+      "keywords": [
+        "wohngeld",
+        "housing benefit",
+        "rent support",
+        "rent help",
+        "mietzuschuss"
+      ],
+      "source": "https://studierendenwerke.de/themen/finanzierungsmoeglichkeiten/wohngeld"
+    },
+    "basic_account": {
+      "area": "money",
+      "law": "§ 31 ZKG",
+      "title": "Every person living legally in the EU has a right to a basic bank account",
+      "summary": "Banks offering accounts to consumers must open a basic account (Basiskonto) for anyone legally resident in the EU, including people without a fixed address and asylum seekers. It works on a credit basis (no overdraft) and offers deposits, withdrawals, transfers, direct debits and a debit card. Useful for international students whose application was rejected.",
+      "keywords": [
+        "bank account",
+        "konto",
+        "basiskonto",
+        "open account",
+        "bank refused",
+        "girokonto",
+        "bank"
+      ],
+      "source": "https://www.gesetze-im-internet.de/zkg/__31.html"
+    },
+    "health_insurance": {
+      "area": "health",
+      "law": "§ 5 Abs. 1 Nr. 9, § 10 SGB V",
+      "title": "Health insurance: family insurance until 25, student rate until 30",
+      "summary": "Health insurance is compulsory to enrol. Until your 25th birthday you can be insured free of charge through your parents' public insurance, if you earn at most 565 EUR a month (603 EUR in a Minijob) in 2026. After that, the student health insurance (KVdS) at a reduced rate applies, at most until the end of the semester in which you turn 30. After that you continue as a voluntary member at higher rates.",
+      "values": {
+        "family_income_limit_2026": 565,
+        "family_minijob_limit_2026": 603
+      },
+      "keywords": [
+        "health insurance",
+        "krankenversicherung",
+        "krankenkasse",
+        "insurance",
+        "tk",
+        "aok",
+        "family insurance",
+        "familienversicherung",
+        "kvds"
+      ],
+      "source": "https://www.gesetze-im-internet.de/sgb_5/__5.html"
+    },
+    "withdrawal_online": {
+      "area": "consumer",
+      "law": "§ 355, § 356 BGB",
+      "title": "Bought online or by phone: 14 days to withdraw",
+      "summary": "For contracts made online, by phone or at your door you can withdraw within 14 days without giving reasons. For goods the period starts when you receive them. If the seller did not inform you properly about this right, it lasts up to 12 months and 14 days. Declare the withdrawal clearly, e.g. by e-mail; just sending the item back is not always enough.",
+      "keywords": [
+        "return",
+        "refund",
+        "online",
+        "withdraw",
+        "widerruf",
+        "cancel order",
+        "amazon",
+        "14 days",
+        "rückgabe",
+        "phone contract"
+      ],
+      "source": "https://www.gesetze-im-internet.de/bgb/__355.html"
+    },
+    "auto_renewal": {
+      "area": "consumer",
+      "law": "§ 309 Nr. 9 lit. b BGB",
+      "title": "Contracts may not silently renew for another fixed term",
+      "summary": "For consumer contracts concluded since 1 March 2022 (gym, phone, streaming, magazines...), a standard clause that automatically renews the contract for another fixed period is invalid. Automatic renewal is only allowed for an indefinite period, and the customer must then be able to cancel at any time with max. one month's notice.",
+      "keywords": [
+        "gym",
+        "fitness",
+        "renewal",
+        "verlängert",
+        "subscription",
+        "abo",
+        "cancel gym",
+        "phone contract",
+        "vertrag kündigen"
+      ],
+      "source": "https://www.gesetze-im-internet.de/bgb/__309.html"
+    },
+    "consumer_notice": {
+      "area": "consumer",
+      "law": "§ 309 Nr. 9 lit. c BGB",
+      "title": "Notice before the end of the minimum term: max. 1 month",
+      "summary": "For consumer contracts concluded since 1 March 2022, a standard clause requiring notice of more than one month before the end of the initial term is invalid.",
+      "keywords": [
+        "cancel",
+        "notice",
+        "kündigungsfrist",
+        "gym",
+        "contract",
+        "mindestlaufzeit"
+      ],
+      "source": "https://www.gesetze-im-internet.de/bgb/__309.html"
+    },
+    "phone_contract": {
+      "area": "consumer",
+      "law": "§ 56 TKG",
+      "title": "Phone and internet contracts: max. 24 months, then cancel monthly",
+      "summary": "The initial term of a mobile or internet contract may not exceed 24 months, and the provider must also offer a contract of max. 12 months. After the initial term, a contract that renews silently can be cancelled at any time with one month's notice, at no cost. Early 'extensions' may not push the total binding term beyond 24 months.",
+      "keywords": [
+        "phone contract",
+        "handyvertrag",
+        "mobile contract",
+        "internet contract",
+        "o2",
+        "vodafone",
+        "telekom",
+        "24 months",
+        "sim",
+        "dsl"
+      ],
+      "source": "https://www.gesetze-im-internet.de/tkg_2021/__56.html"
+    },
+    "cancel_button": {
+      "area": "consumer",
+      "law": "§ 312k, § 312j BGB",
+      "title": "Online subscriptions: a 'cancel contract' button is mandatory",
+      "summary": "Companies that let consumers sign up for ongoing contracts on a website must also offer an easy online cancellation button ('Verträge hier kündigen' → 'jetzt kündigen'). If they don't, you can cancel at any time without notice. When ordering online, the final button must clearly say that you pay ('zahlungspflichtig bestellen' or equally clear); otherwise no contract is formed.",
+      "keywords": [
+        "cancel subscription",
+        "kündigungsbutton",
+        "abo kündigen",
+        "unsubscribe",
+        "streaming",
+        "subscription trap",
+        "abofalle",
+        "free trial",
+        "cancel online"
+      ],
+      "source": "https://www.gesetze-im-internet.de/bgb/__312k.html"
+    },
+    "unordered_goods": {
+      "area": "consumer",
+      "law": "§ 241a BGB",
+      "title": "Received something you didn't order: you don't have to pay",
+      "summary": "If a company sends you goods or services you did not order, it gets no claim against you: you do not have to pay, send them back or keep them safe. Exceptions: if it was obviously sent to you by mistake and you could see that, or if you ordered and got an equivalent substitute with a note that you may refuse it at the seller's cost.",
+      "keywords": [
+        "didn't order",
+        "unordered",
+        "not ordered",
+        "unbestellt",
+        "package",
+        "invoice for nothing",
+        "inkasso",
+        "never ordered"
+      ],
+      "source": "https://www.gesetze-im-internet.de/bgb/__241a.html"
+    },
+    "data_access": {
+      "area": "data",
+      "law": "Art. 15, Art. 12 Abs. 3 DSGVO",
+      "title": "You can ask any company what data it has about you",
+      "summary": "Under the GDPR you can ask any company, landlord, employer or university whether and which personal data it stores about you, and get a free copy. You do not need to give a reason. They must answer within one month; in complex cases they may extend by two months but must tell you within the first month.",
+      "keywords": [
+        "data",
+        "gdpr",
+        "dsgvo",
+        "privacy",
+        "personal data",
+        "auskunft",
+        "datenschutz",
+        "what data"
+      ],
+      "source": "https://www.bfdi.bund.de/DE/Buerger/Inhalte/Allgemein/Betroffenenrechte/Betroffenenrechte_Auskunftsrecht.html"
+    },
+    "discrimination_housing": {
+      "area": "discrimination",
+      "law": "§ 19, § 21 AGG",
+      "title": "Rejected for a flat because of your origin: that is illegal",
+      "summary": "Landlords and estate agents may not treat you worse when renting because of your ethnic origin (also national origin). This applies even to small private landlords. In January 2026 the BGH confirmed that estate agents are liable too. You can claim damages and compensation, but you must do so within two months, in writing. Keep evidence (e.g. same application under another name).",
+      "keywords": [
+        "discrimination",
+        "racism",
+        "rejected",
+        "foreigner",
+        "diskriminierung",
+        "agg",
+        "origin",
+        "name",
+        "ausländer"
+      ],
+      "source": "https://www.gesetze-im-internet.de/agg/__21.html"
+    },
+    "abmahnung_cap": {
+      "area": "copyright",
+      "law": "§ 97a Abs. 2 und 3 UrhG",
+      "title": "Copyright warning letter: lawyer fees are capped for private people",
+      "summary": "If a private person who did not use the work commercially receives a first warning letter (Abmahnung), the lawyer fees they can be asked to pay are calculated on a value of max. 1,000 EUR for the injunction claim. This does not cap damages. A warning letter that does not meet the transparency rules of § 97a Abs. 2 UrhG is invalid. Do not ignore the deadline and do not sign the attached declaration before it is checked.",
+      "keywords": [
+        "abmahnung",
+        "warning letter",
+        "torrent",
+        "filesharing",
+        "download",
+        "copyright",
+        "urheberrecht",
+        "unterlassungserklärung",
+        "lawyer letter"
+      ],
+      "source": "https://www.gesetze-im-internet.de/urhg/__97a.html"
+    }
+  },
+  "free_help": {
+    "exams": [
+      "Your student council (Studierendenvertretung / AStA) – many offer free legal advice on exam law",
+      "Exam office and student advisory service of your university"
+    ],
+    "work": [
+      "Free legal advice at your Studierendenwerk or student council",
+      "DGB students' advice / your trade union"
+    ],
+    "international": [
+      "International office of your university",
+      "Ausländerbehörde (immigration office) – ask before you exceed your working days"
+    ],
+    "housing": [
+      "Mieterverein in your city (e.g. Mieterverein München; low yearly fee, legal advice included)",
+      "Free legal advice offered by many Studierendenwerke and student councils"
+    ],
+    "money": [
+      "BAföG office (Amt für Ausbildungsförderung) of your Studierendenwerk",
+      "Lohnsteuerhilfeverein for tax returns"
+    ],
+    "health": [
+      "Your health insurance company (Krankenkasse) – they have to advise you"
+    ],
+    "consumer": [
+      "Verbraucherzentrale in your federal state (Verbraucherzentrale Bayern)"
+    ],
+    "data": [
+      "Data protection authority (in Bavaria: BayLDA for companies)"
+    ],
+    "discrimination": [
+      "Antidiskriminierungsstelle des Bundes – free advice"
+    ],
+    "copyright": [
+      "Verbraucherzentrale (they have specific Abmahnung advice)",
+      "A lawyer for copyright law – do not sign anything before it is checked"
+    ],
+    "general": [
+      "Studierendenwerk / student council legal advice",
+      "Verbraucherzentrale"
+    ]
+  }
+}

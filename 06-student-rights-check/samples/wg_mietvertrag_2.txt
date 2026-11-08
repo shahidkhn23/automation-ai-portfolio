@@ -1,0 +1,9 @@
+Mietvertrag WG-Zimmer
+
+Vermieter: Hausverwaltung Beispiel. Mieter: Tom Student.
+
+§ 1 Die Kaltmiete beträgt 600,00 €. Die Kaution beträgt drei Monatsmieten.
+§ 2 Der Vermieter ist berechtigt, das Zimmer jederzeit auch ohne Ankündigung zu betreten.
+§ 3 Eine Mietminderung wegen Mängeln ist ausgeschlossen.
+§ 4 Eine Untervermietung ist grundsätzlich verboten.
+§ 5 Eine Anmeldung des Wohnsitzes ist nicht gestattet.
