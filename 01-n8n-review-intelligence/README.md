@@ -6,7 +6,9 @@ The problem: reviews arrive from Google, Trustpilot and app stores in two langua
 
 ![Workflow diagram](docs/workflow-diagram.png)
 
-<!-- After importing into n8n: add a real canvas screenshot as docs/n8n-canvas.png -->
+**Real test run in n8n (self-hosted, Groq):** green = executed.
+
+![n8n test run](docs/n8n-canvas-test-run.jpg)
 
 ## What it does
 
@@ -51,8 +53,21 @@ Two things normally cost money here: n8n Cloud and the OpenAI key. Both have fre
 
 `sample_reviews.json` contains 5 test reviews: a German pickup complaint, a positive English review, a German legal threat about a damage charge, an app bug, and a safety issue.
 
-## Results
-_Fill in after you run it: e.g. "Classified 5/5 sample reviews correctly, 3 escalated, average run 2.1 s."_
+## Results (real run, 8 Nov 2026)
+Self-hosted n8n (Docker) + Groq free tier, model `openai/gpt-oss-120b`, the 5 reviews from `sample_reviews.json`. Google Sheets and Slack were switched off for this test (not connected yet); everything else ran for real.
+
+| Review | AI result | Escalated |
+|---|---|---|
+| DE, 1★, 50 min wait at counter | negative · pickup_wait · German reply draft | yes |
+| EN, 5★, quick pickup, clean car | positive · English reply draft | no |
+| DE, 2★, charged for old scratch, legal threat | negative · damage_claim · urgency high | yes |
+| EN, 3★, app crashes adding a driver | neutral · booking_app | no |
+| EN, 1★, brake warning light, hotline unreachable | negative · car_condition · urgency high | yes |
+
+- Escalation: 5/5 as expected. Reply language matched the review: 5/5.
+- Category: 4/5 ideal. The brake review was labelled `car_condition`; `safety` would have been better. It was still escalated because urgency was high.
+- One reply draft contained a placeholder (`[phone/email]`). That's why drafts go to a human before anything is posted.
+- First run failed with `401 Invalid API Key` (credential typo). The fallback kicked in as designed: the review was still answered, logged and flagged instead of being lost.
 
 ## Next steps
 - Pull reviews automatically from the Google Business Profile API instead of the webhook
