@@ -1,0 +1,19 @@
+Untermietvertrag für ein WG-Zimmer
+
+Zwischen Max Beispiel (Vermieter) und Anna Student (Mieterin) wird folgender Mietvertrag geschlossen.
+
+§ 1 Mietsache
+Vermietet wird ein Zimmer in der Wohnung Musterstraße 12, 80807 München.
+
+§ 2 Miete
+Die monatliche Kaltmiete beträgt 450,00 €. Zusätzlich ist eine Nebenkostenvorauszahlung von 120,00 € zu zahlen.
+
+§ 3 Kaution
+Die Mieterin zahlt eine Kaution in Höhe von 1.800,00 €.
+Die Kaution ist vollständig bei Schlüsselübergabe in bar zu zahlen.
+
+§ 4 Kündigung
+Die Kündigungsfrist für die Mieterin beträgt sechs Monate zum Monatsende.
+
+§ 5 Sonstiges
+Die erste Miete ist bis zum 01.12.2026 auf das Konto des Vermieters zu überweisen.
