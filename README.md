@@ -7,6 +7,10 @@ Three projects around one fictional company, **Rentora** (car rental, Germany): 
 | 01 | [Customer Review Intelligence](01-n8n-review-intelligence) | n8n, OpenAI, Google Sheets, Slack, Gmail | Bilingual reviews read by hand, urgent ones missed, no weekly insight |
 | 02 | [Event Lead Autopilot](02-zapier-event-lead-autopilot) | Zapier, AI by Zapier, Google Forms/Sheets/Calendar, Gmail, Slack | Manual sign-up handling, generic emails, sales hears about hot leads too late |
 | 03 | [Rentora Support Agent](03-ai-support-agent) | Python, Claude API, tool calling, BM25 retrieval, evals | Support questions about policies, availability and bookings in DE/EN |
+| 04 | [Review Insights on Real Data](04-review-insights-real-data) | Python, Claude API (optional) | Understand a real company's customers from public reviews before the interview |
+| 05 | [Real Pilot Kit](05-real-pilot-kit) | Process, German templates | Get a real business to use project 01 or 02 for 3 weeks, measure it, get a reference |
+
+**Projects 01–03 show you can build. 04 and 05 show it works in the real world.** That's what a manager is really asking about.
 
 ---
 

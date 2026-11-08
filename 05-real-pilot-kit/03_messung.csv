@@ -1,0 +1,6 @@
+phase,date,task,count,minutes_total,minutes_per_item,notes
+before,,Reply to Google reviews,,,,"Ask the owner to time this for 1 week, or estimate together and write 'estimate'"
+before,,Read reviews and note recurring problems,,,,
+during,,Reply to Google reviews (edit AI draft + post),,,,
+during,,Read weekly summary,,,,
+during,,Problems / fixes needed,,,,"Write down every bug honestly, with the date"
