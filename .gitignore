@@ -3,3 +3,6 @@ logs/
 .env
 03-ai-support-agent/data/handoffs.jsonl
 03-ai-support-agent/evals/results_*.json
+# real company data stays private, only the tool and sample data are public
+04-review-insights-real-data/data/reviews.csv
+04-review-insights-real-data/output/
