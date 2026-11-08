@@ -1,6 +1,6 @@
 # Shahid — Automation & AI Portfolio
 
-Three projects around one fictional company, **Rentora** (car rental, Germany): the support agent answers customers, the n8n flow listens to what they say in reviews, and the Zapier flow turns event sign-ups into leads.
+Five projects around one fictional company, **Rentora** (car rental, Germany). In the first three, the support agent answers customers, the n8n flow listens to what they say in reviews, and the Zapier flow turns event sign-ups into leads. The last two take this into the real world: analysing real public reviews, and running a pilot with a real business.
 
 | # | Project | Tools | Business problem |
 |---|---|---|---|
