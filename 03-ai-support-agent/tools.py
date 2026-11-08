@@ -15,9 +15,16 @@ def _load(name):
 
 
 # ---------------------------------------------------------------- retrieval
+STOPWORDS = set("""a an the is are was be to of in on for at by with and or do does can i my me you your we our it
+this that what how much many when where which who there any if not no from have has will would about
+der die das ein eine einen ist sind und oder zu im in am an auf für mit von bei wie was wo wann ich mein meine
+meinen mir sie ihr es kann darf muss gibt es man den dem des nicht kein keine bitte""".split())
+
+
 def _tokenize(text):
-    # crude stemming: first 6 letters, so "cancel" matches "cancellation"
-    return [w[:6] for w in re.findall(r"[a-zäöüß0-9]+", text.lower())]
+    # drop filler words, then crude stemming (first 6 letters) so "cancel" matches "cancellation"
+    words = re.findall(r"[a-zäöüß0-9]+", text.lower())
+    return [w[:6] for w in words if w not in STOPWORDS]
 
 
 def _load_policy_sections():

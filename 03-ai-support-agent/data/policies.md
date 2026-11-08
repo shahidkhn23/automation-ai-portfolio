@@ -10,15 +10,15 @@ Stichwörter: Stornierung, stornieren, cancel, free, kostenlos, No-Show, Erstatt
 
 ## Fuel
 Cars are handed over with a full tank and must be returned full. If not, Rentora refuels at 2.50 EUR per litre plus a 15 EUR service fee. Electric cars must be returned with at least 70 percent charge.
-Stichwörter: Tank, tanken, vollgetankt, volltanken, Benzin, Kraftstoff, Laden, Elektroauto, Akku
+Stichwörter: fuel, petrol, gas, refuel, charging, Tank, tanken, vollgetankt, volltanken, Benzin, Kraftstoff, Laden, Elektroauto, Akku
 
 ## Young drivers
 Minimum age is 19 with at least one year of driving licence. Drivers under 25 pay a young driver fee of 12 EUR per day and cannot rent Premium cars.
-Stichwörter: Mindestalter, junge Fahrer, Führerschein, Alter, Zuschlag
+Stichwörter: age, old, years, alt, Jahre, Mindestalter, junge Fahrer, Führerschein, Alter, Zuschlag
 
 ## Additional driver
 An additional driver costs 8 EUR per day and must be present at pickup with a valid licence.
-Stichwörter: Zusatzfahrer, zweiter Fahrer, weiterer Fahrer
+Stichwörter: someone else, partner, wife, husband, friend, also, auch, Partnerin, Frau, Mann, Zusatzfahrer, zweiter Fahrer, weiterer Fahrer
 
 ## Cross-border travel
 Travel to EU countries, Switzerland, Norway and the UK is allowed. Travel to other countries requires written approval. Premium cars may not leave Germany, Austria and Switzerland.
