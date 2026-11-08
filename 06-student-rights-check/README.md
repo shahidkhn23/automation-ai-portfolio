@@ -98,6 +98,26 @@ A wrong answer here costs a student real money or an exam attempt. So the work i
 3. **Retrieval (`ask.py`)**: a small BM25 search over the rules with English and German keywords, so students can ask in either language. Below a confidence threshold it refuses to answer and points to free advice.
 4. **LLM layer (`llm.py`)**: optional. It only gets the verified rules and turns them into simple language in the student's own language. The system prompt forbids new laws, numbers or case-specific advice.
 
+## AI agent mode
+
+`python -m rightscheck agent "<message>" [--file contract.pdf] [--trace]`
+
+Here the model decides what to do. It has two tools, both backed by the tested code above: `check_document` (red-flag checks on the attached document) and `search_rights` (the 50 verified rules). It can combine them, e.g. check a lease, look up a related right, and draft a polite message to the landlord.
+
+Illustrative trace (replace with your own run):
+
+```
+$ python -m rightscheck agent "Is this okay? Write my landlord a short message." --file samples/wg_mietvertrag.txt --trace
+[tool] check_document {}
+[tool] search_rights {"question": "deposit instalments"}
+[grounded] True
+...
+```
+
+The safety rule is enforced in code, not only in the prompt: every law reference (`§ …`, `Art. …`) in the answer must appear in a tool result. If the model cites something no tool returned, it gets one chance to fix it; after that the agent shows the verified tool results instead. There is also a step limit, and unknown tool names are rejected.
+
+The agent tests (`tests/test_agent.py`) use a scripted fake model, so they run offline: tool use, the retry on an invented paragraph, the fallback, missing document, unknown tool and the step limit. The live agent needs `ANTHROPIC_API_KEY`.
+
 ## Staying legal: information, not legal advice
 
 In Germany, legal advice on an individual case is regulated by the Rechtsdienstleistungsgesetz (RDG). General legal information is allowed. A disclaimer alone doesn't make advice legal, so the tool is **built** to stay on the information side:
@@ -127,7 +147,7 @@ pytest                                                              # run the te
 
 ## Quality
 
-- **50 tests**: every sample contract, number parsing, 29 real student questions in English and German, the minimum wage switch on 1 Jan 2027.
+- **57 tests**: every sample contract, number parsing, 29 real student questions in English and German, the minimum wage switch on 1 Jan 2027.
 - **Precision test:** a fair contract (`samples/fairer_vertrag.txt`) must produce zero warnings, and an unrelated question must get no answer. A tool that warns about everything or answers everything is useless.
 - **Integrity tests:** every rule has an area, a source link and keywords; every answer only contains text from the verified knowledge base.
 
@@ -136,6 +156,7 @@ pytest                                                              # run the te
 - [x] v0.1: contract check for leases, work contracts, gym contracts, Abmahnung
 - [x] v0.2: all student-rights areas, "Ask about your rights" mode, Bavarian exam law
 - [x] v0.3: 50 verified rules, 27 automatic contract checks
+- [x] v0.4: AI agent mode with tool calling and a code-enforced grounding check
 - [ ] OCR so students can upload a photo of a letter
 - [ ] n8n workflow: upload → check → deadline into Google Calendar → reminder e-mail
 - [ ] Zapier version: forward a letter by e-mail, get the explanation back
