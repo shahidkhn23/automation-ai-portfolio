@@ -4,7 +4,9 @@ An AI agent for a (fictional) German car rental company. It answers customers in
 
 Built with plain Python (no frameworks, no dependencies) to show I understand what agent frameworks do under the hood.
 
-![Web chat with live tool trace](docs/demo.png)
+![Demo: web chat with live tool trace](docs/demo.gif)
+
+[Watch as MP4 (28 s)](docs/demo.mp4)
 
 *Web chat (offline mode): English and German questions, a blocked booking lookup with the wrong last name, and an escalated accident. Right side: every tool call the agent made.*
 
