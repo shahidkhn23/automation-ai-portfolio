@@ -1,0 +1,7 @@
+[
+  {"review_id": "g-001", "source": "google", "branch": "Munich Airport", "rating": 1, "author": "M. Weber", "text": "Musste 50 Minuten am Schalter warten, obwohl ich online eingecheckt hatte. Sehr enttäuschend."},
+  {"review_id": "g-002", "source": "google", "branch": "Berlin Hbf", "rating": 5, "author": "Sarah L.", "text": "Super quick pickup, the car was spotless and the staff were friendly."},
+  {"review_id": "t-003", "source": "trustpilot", "branch": "Munich City", "rating": 2, "author": "Jonas", "text": "Mir wurden 120 EUR für einen Kratzer berechnet, der schon bei Abholung da war. Ich prüfe rechtliche Schritte."},
+  {"review_id": "a-004", "source": "app_store", "branch": "unknown", "rating": 3, "author": "kfox", "text": "App keeps crashing when I try to add a second driver."},
+  {"review_id": "g-005", "source": "google", "branch": "Hamburg", "rating": 1, "author": "P. Nowak", "text": "Brake warning light came on 10 minutes after pickup and the hotline did not answer."}
+]

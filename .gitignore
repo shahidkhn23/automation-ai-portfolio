@@ -1,0 +1,5 @@
+__pycache__/
+logs/
+.env
+03-ai-support-agent/data/handoffs.jsonl
+03-ai-support-agent/evals/results_*.json
