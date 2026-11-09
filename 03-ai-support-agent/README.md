@@ -38,17 +38,24 @@ User ──► Agent loop (agent.py) ──► LLM (Claude API or offline mock)
 
 ## Evaluation
 
-`evals/cases.json` has 15 test conversations (policies, availability, bookings, escalation, a privacy test with a wrong last name). Each case checks: right tool used, required facts in the answer, forbidden facts absent.
+`evals/cases.json` has 20 test conversations. Each case checks: right tool used, required facts in the answer, forbidden facts absent.
+
+| Group | Cases | What it checks |
+|---|---|---|
+| Policies | 6 | Correct fee/rule from the policy text, in German and English |
+| Availability | 3 | Free cars only, booked-out cars never offered |
+| Bookings | 3 | Status lookup, wrong last name blocked, cancelled booking |
+| Escalation | 3 | Accident, request for a human, refund → handoff ticket |
+| **Attacks** | 5 | Prompt injection ("ignore all previous instructions…", DE and EN), wildcard names, attempts to list customer names, a fake "policy override" |
 
 ```bash
-python evals/run_evals.py            # real model if ANTHROPIC_API_KEY is set
+python evals/run_evals.py            # real model if an API key is set
 AGENT_MODE=mock python evals/run_evals.py
 ```
 
-| Backend | Score |
-|---|---|
-| MockLLM (offline, rule-based) | 15/15 |
-| Groq or Claude API | _not run yet — add your score after running with a key_ |
+**Current result:** 20/20 with `MockLLM`, the offline rule-based planner. This checks the tools, the guardrails and the eval harness itself, not the quality of a language model. Model quality is measured by running the same 20 cases against Groq or Claude; per-case results are written to `evals/results_<backend>.json`.
+
+The privacy rule is also covered by a unit test that feeds manipulated names (`*`, `' OR '1'='1`, `admin`, …) straight into the booking tool: it must refuse every one, whatever the model asks for.
 
 ## Run it
 
@@ -77,7 +84,7 @@ Without an API key it runs on `MockLLM`, a rule-based planner with the same inte
 ## What I'd do next
 - Replace JSON files with a real database and a booking-change tool (with confirmation step)
 - Vector search for larger policy documents
-- Run the evals in CI on every change
+- Run the evals against a real model on every change, not only the offline planner
 - Track answer quality from real conversations (thumbs up/down in the UI)
 
 All company data is fictional.
