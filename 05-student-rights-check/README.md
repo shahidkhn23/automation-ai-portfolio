@@ -133,7 +133,7 @@ More detail in [docs/LEGAL.md](docs/LEGAL.md).
 
 ```bash
 git clone https://github.com/shahidkhn23/automation-ai-portfolio.git
-cd automation-ai-portfolio/06-student-rights-check
+cd automation-ai-portfolio/05-student-rights-check
 pip install -e ".[dev]"
 
 python -m rightscheck topics                                        # everything it knows

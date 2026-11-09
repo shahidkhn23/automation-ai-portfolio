@@ -28,12 +28,12 @@ jobs:
         run: python analyze_reviews.py data/SAMPLE_fake_reviews.csv --company "Rentora" --lang en
 
       - name: Student Rights Check – tests
-        working-directory: 06-student-rights-check
+        working-directory: 05-student-rights-check
         run: |
           pip install pytest
           pip install -e .
           pytest -q
 
       - name: Coding assistant eval – harness self-test
-        working-directory: 07-coding-assistant-eval
+        working-directory: 06-coding-assistant-eval
         run: python evaluate.py --self-test
