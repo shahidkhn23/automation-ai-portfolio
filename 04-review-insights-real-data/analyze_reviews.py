@@ -258,7 +258,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("csv")
     ap.add_argument("--company", required=True)
-    ap.add_argument("--author", default="Shahid")
+    ap.add_argument("--author", default="Shahid Saleem")
     ap.add_argument("--lang", choices=["de", "en"], default="de")
     ap.add_argument("--out", default="output")
     ap.add_argument("--deep-dive", help="second CSV with only negative reviews, shown as an extra section")
