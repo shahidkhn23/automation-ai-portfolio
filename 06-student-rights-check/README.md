@@ -13,7 +13,7 @@ Every answer shows what the law generally says, the exact paragraph, a link to t
 
 ## Why I built this
 
-I study Informatik (AI) at TH Rosenheim and have done many student jobs in Germany: hotel reception, retail, events, IT support. The same story keeps coming up around me: someone pays a deposit that was never legal, works below minimum wage because "that's what Werkstudenten get", misses an exam and loses the attempt because they didn't know the rules, or is stuck in a gym contract for another year. People usually find out what their rights are after the damage is done.
+Around me as a student in Germany, the same stories keep coming up: someone pays a deposit that was never legal, works below minimum wage because "that's what Werkstudenten get", misses an exam and loses the attempt because they didn't know the rules, or is stuck in a gym contract for another year. People usually find out what their rights are after the damage is done.
 
 Lawyers are expensive, and free advice exists (Mieterverein, Verbraucherzentrale, student council), but most students don't know that or don't know when they need it. This tool is the first step: it tells you **that** something is wrong, **what** the law says, and **who** can help you for free.
 
@@ -164,13 +164,10 @@ pytest                                                              # run the te
 - [ ] Exam rules for other federal states
 - [ ] Official letters (Finanzamt, Rundfunkbeitrag, Krankenkasse): "what do they want from me" + deadline
 - [ ] Feedback button "was this correct?" to measure precision with real users
-
-## Users and feedback
-
-_Updated as the project is tested with real students._
+- [ ] Pilot with fellow students to measure which answers they find useful
 
 ## Author
 
-Shahid · Informatik (AI) student at TH Rosenheim · [github.com/shahidkhn23](https://github.com/shahidkhn23)
+Shahid Saleem · B.Sc. Artificial Intelligence, TH Rosenheim · [github.com/shahidkhn23](https://github.com/shahidkhn23)
 
 _Disclaimer: Student Rights Check provides general legal information, not legal advice. It does not replace a lawyer or an advice service._
