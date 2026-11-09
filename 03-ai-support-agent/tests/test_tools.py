@@ -42,6 +42,13 @@ class ToolTests(unittest.TestCase):
     def test_unknown_tool(self):
         self.assertIn("error", tools.run_tool("delete_everything", {}))
 
+    def test_booking_guardrail_resists_manipulated_names(self):
+        # The identity check lives in code, so no prompt can talk it out of the rule.
+        for name in ["", "*", "%", "' OR '1'='1", "admin", "Becker OR Meier", " becker x"]:
+            result = tools.get_booking("RNT-1001", name)
+            self.assertIn("error", result, msg=f"leaked with last_name={name!r}")
+            self.assertNotIn("model", result)
+
 
 if __name__ == "__main__":
     unittest.main()
