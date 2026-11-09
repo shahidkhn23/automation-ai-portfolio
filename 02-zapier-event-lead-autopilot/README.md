@@ -105,15 +105,8 @@ Event = the meetup, attendee = step 3 email. The person gets a real calendar inv
 ### 9. Test and switch on
 Test each step, then publish. Submit all rows from `test_signups.csv` through the form and check: sheet rows, Slack alerts (should be 2), emails in the right language, calendar invites, and that the "No consent" row was stopped by the filter.
 
-## What to put on GitHub / in your portfolio
-Zapier can't export a Zap as a file, so document it:
-- `docs/zap-overview.png` — the whole Zap
-- `docs/ai-step.png` — the AI prompt and output fields
-- `docs/slack-alert.png`, `docs/email-de.png`, `docs/email-en.png` — results
-- A 60–90 second Loom video walking through one sign-up end to end
-
-## Results
-_Fill in after testing, e.g. "6 test sign-ups: 1 blocked by consent filter, 2 routed to sales, 5 confirmations sent in the right language, ~25 s from form to inbox."_
+## Documentation
+Zapier can't export a Zap as a file, so the flow is documented as a diagram: `docs/zap-diagram.png`.
 
 ## Plan note
-Zapier's free plan only runs two-step Zaps. Build this during the 14-day Professional trial, take screenshots and the video, then turn it off. A two-step version that keeps running on the free plan: *Google Forms → Google Sheets*.
+Zapier's free plan only runs two-step Zaps. The full flow runs on the 14-day Professional trial. A two-step version that keeps running on the free plan: *Google Forms → Google Sheets*.

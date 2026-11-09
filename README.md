@@ -1,6 +1,6 @@
 # Shahid — Automation & AI Portfolio
 
-Six projects in automation and applied AI. The first five are built around one fictional company, **Rentora** (car rental, Germany): the support agent answers customers, the n8n flow listens to what they say in reviews, and the Zapier flow turns event sign-ups into leads. Projects 04 and 05 take this into the real world: analysing real public reviews, and running a pilot with a real business. Project 06 is independent: it checks contracts and answers questions about students' rights in Germany, based on 50 hand-verified legal rules.
+Five projects in automation and applied AI. The first four are built around one fictional company, **Rentora** (car rental, Germany): the support agent answers customers, the n8n flow listens to what they say in reviews, the Zapier flow turns event sign-ups into leads, and project 04 applies the review analysis to real public reviews. Project 06 is independent: it checks contracts and answers questions about students' rights in Germany, based on 50 hand-verified legal rules.
 
 | # | Project | Tools | Business problem |
 |---|---|---|---|
@@ -8,7 +8,6 @@ Six projects in automation and applied AI. The first five are built around one f
 | 02 | [Event Lead Autopilot](02-zapier-event-lead-autopilot) | Zapier, AI by Zapier, Google Forms/Sheets/Calendar, Gmail, Slack | Manual sign-up handling, generic emails, sales hears about hot leads too late |
 | 03 | [Rentora Support Agent](03-ai-support-agent) | Python, Claude API, tool calling, BM25 retrieval, evals | Support questions about policies, availability and bookings in DE/EN |
 | 04 | [Review Insights on Real Data](04-review-insights-real-data) | Python, Claude API (optional) | Understand a real company's customers from its public reviews |
-| 05 | [Real Pilot Kit](05-real-pilot-kit) | Process, German templates | Run project 01 or 02 with a real business for 3 weeks and measure the results |
 | 06 | [Student Rights Check](06-student-rights-check) | Python, BM25 retrieval, rule engine, Claude API (optional), 50 tests | Students in Germany sign contracts they don't understand and don't know their rights |
 
 ---

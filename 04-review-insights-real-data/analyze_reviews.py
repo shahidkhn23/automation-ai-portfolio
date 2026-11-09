@@ -1,8 +1,8 @@
 """Turns a CSV of real customer reviews into a one-page insight report (HTML) and a labelled CSV.
 
 Usage:
-    python analyze_reviews.py data/reviews.csv --company "AurumCars"
-    python analyze_reviews.py data/reviews.csv --company "AurumCars" --lang en
+    python analyze_reviews.py data/reviews.csv --company "Rentora"
+    python analyze_reviews.py data/reviews.csv --company "Rentora" --lang en
 
 Classification:
     - With ANTHROPIC_API_KEY set: each review is classified by Claude (better quality).
