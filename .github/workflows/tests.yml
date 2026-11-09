@@ -1,0 +1,39 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Support agent – unit tests
+        working-directory: 03-ai-support-agent
+        run: python -m unittest discover tests -v
+
+      - name: Support agent – evals (offline planner)
+        working-directory: 03-ai-support-agent
+        env:
+          AGENT_MODE: mock
+        run: python evals/run_evals.py
+
+      - name: Review insights – smoke test on sample data
+        working-directory: 04-review-insights-real-data
+        run: python analyze_reviews.py data/SAMPLE_fake_reviews.csv --company "Rentora" --lang en
+
+      - name: Student Rights Check – tests
+        working-directory: 06-student-rights-check
+        run: |
+          pip install pytest
+          pip install -e .
+          pytest -q
+
+      - name: Coding assistant eval – harness self-test
+        working-directory: 07-coding-assistant-eval
+        run: python evaluate.py --self-test
