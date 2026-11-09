@@ -104,7 +104,7 @@ A wrong answer here costs a student real money or an exam attempt. So the work i
 
 Here the model decides what to do. It has two tools, both backed by the tested code above: `check_document` (red-flag checks on the attached document) and `search_rights` (the 50 verified rules). It can combine them, e.g. check a lease, look up a related right, and draft a polite message to the landlord.
 
-Illustrative trace (replace with your own run):
+Illustrative trace:
 
 ```
 $ python -m rightscheck agent "Is this okay? Write my landlord a short message." --file samples/wg_mietvertrag.txt --trace
