@@ -55,6 +55,50 @@ def anthropic_model(system: str, messages: list, tools: list) -> dict:
         return json.loads(r.read())
 
 
+def to_openai(system: str, messages: list, tools: list) -> dict:
+    """Convert the agent's Anthropic-style conversation to the OpenAI chat format (used by Groq)."""
+    out = [{"role": "system", "content": system}]
+    for m in messages:
+        c = m["content"]
+        if isinstance(c, str):
+            out.append({"role": m["role"], "content": c})
+        elif m["role"] == "assistant":
+            msg = {"role": "assistant",
+                   "content": "".join(b.get("text", "") for b in c if b["type"] == "text") or None}
+            calls = [{"id": b["id"], "type": "function",
+                      "function": {"name": b["name"], "arguments": json.dumps(b.get("input", {}))}}
+                     for b in c if b["type"] == "tool_use"]
+            if calls:
+                msg["tool_calls"] = calls
+            out.append(msg)
+        else:
+            out += [{"role": "tool", "tool_call_id": b["tool_use_id"], "content": b["content"]} for b in c]
+    return {"messages": out,
+            "tools": [{"type": "function", "function": {"name": t["name"], "description": t["description"],
+                                                         "parameters": t["input_schema"]}} for t in tools]}
+
+
+def from_openai(message: dict) -> dict:
+    """Convert an OpenAI-style reply back to the agent's content blocks."""
+    blocks = [{"type": "text", "text": message["content"]}] if message.get("content") else []
+    for c in message.get("tool_calls") or []:
+        blocks.append({"type": "tool_use", "id": c["id"], "name": c["function"]["name"],
+                       "input": json.loads(c["function"].get("arguments") or "{}")})
+    return {"content": blocks or [{"type": "text", "text": ""}]}
+
+
+def groq_model(system: str, messages: list, tools: list) -> dict:
+    """One call to Groq (free tier, OpenAI-compatible API). Needs GROQ_API_KEY."""
+    payload = {"model": os.getenv("RIGHTSCHECK_MODEL", "openai/gpt-oss-120b"), "max_tokens": 2000,
+               "temperature": 0.2, **to_openai(system, messages, tools)}
+    req = urllib.request.Request(
+        "https://api.groq.com/openai/v1/chat/completions", data=json.dumps(payload).encode(),
+        headers={"Authorization": f"Bearer {os.environ['GROQ_API_KEY']}", "Content-Type": "application/json",
+                 "User-Agent": "rightscheck/0.4"})
+    with urllib.request.urlopen(req, timeout=90) as r:
+        return from_openai(json.loads(r.read())["choices"][0]["message"])
+
+
 def ungrounded_refs(text: str, tool_results: list[str]) -> list[str]:
     """Law references in the answer that no tool returned."""
     allowed = " ".join(tool_results).replace(" ", "")
