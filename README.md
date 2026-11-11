@@ -4,6 +4,13 @@
 
 Six projects in automation and applied AI, with a focus on **making AI reliable**: validated outputs, guardrails in code, and evaluations that measure whether things actually work.
 
+## Start here
+
+Short on time? Look at these two:
+
+- **[05 Student Rights Check](05-student-rights-check)**: an AI agent that checks students' contracts and answers questions about their rights in Germany. It may only cite laws from 50 hand-verified rules, and this is enforced in code.
+- **[03 Rentora Support Agent](03-ai-support-agent)**: a bilingual support agent with tool calling, a privacy check inside the tool, and 20 evals including prompt-injection attacks. There's a 28-second demo video.
+
 Projects 01–04 are built around one fictional company, **Rentora** (car rental, Germany): the support agent answers customers, the n8n flow listens to what they say in reviews, the Zapier flow turns event sign-ups into leads, and project 04 applies the review analysis to real public reviews. Project 05 checks contracts and answers questions about students' rights in Germany. Project 06 compares AI coding assistants on the same tasks with hidden tests.
 
 | # | Project | Tools | Problem it solves |
