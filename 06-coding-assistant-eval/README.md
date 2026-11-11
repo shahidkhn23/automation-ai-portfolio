@@ -64,6 +64,17 @@ copilot                     …/5             …%               …
 claude-code                 …/5             …%               …
 ```
 
+## Results so far
+
+| Assistant | Tasks solved | Hidden tests passed | Security flags | Follow-up prompts |
+|---|---|---|---|---|
+| Claude (Opus 5.5, 11 Nov 2026) | 5/5 | 31/31 (100 %) | 0 | 0 |
+| GitHub Copilot | _pending_ | | | |
+
+How the Claude submission was made: the model got only the five `PROMPT.md` files, never `test_task.py` or `reference/`, and each answer was saved unchanged in one attempt. Readability is left blank in `notes.csv` because a human reviewer scores it, not the model itself.
+
+**Caveat:** the tasks and hidden tests were also written with Claude's help, so Claude may have a home advantage (it may anticipate the same edge cases it would test for). The comparison against Copilot and a human review of readability are what make the result meaningful.
+
 ## Design decisions
 
 - **Hidden tests, same prompt.** Assistants never see the tests, so they can't be optimised for them; everyone gets the identical prompt.
