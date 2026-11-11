@@ -116,7 +116,7 @@ $ python -m rightscheck agent "Is this okay? Write my landlord a short message."
 
 The safety rule is enforced in code, not only in the prompt: every law reference (`§ …`, `Art. …`) in the answer must appear in a tool result. If the model cites something no tool returned, it gets one chance to fix it; after that the agent shows the verified tool results instead. There is also a step limit, and unknown tool names are rejected.
 
-The agent tests (`tests/test_agent.py`) use a scripted fake model, so they run offline: tool use, the retry on an invented paragraph, the fallback, missing document, unknown tool and the step limit. The live agent needs `ANTHROPIC_API_KEY`.
+The agent tests (`tests/test_agent.py`) use a scripted fake model, so they run offline: tool use, the retry on an invented paragraph, the fallback, missing document, unknown tool and the step limit. The live agent runs with a free `GROQ_API_KEY` (model `openai/gpt-oss-120b`, change with `RIGHTSCHECK_MODEL`) or with `ANTHROPIC_API_KEY`.
 
 ## Staying legal: information, not legal advice
 
@@ -140,7 +140,8 @@ python -m rightscheck topics                                        # everything
 python -m rightscheck ask "Can I work 25 hours as a Werkstudent?"   # ask a question
 python -m rightscheck check samples/werkstudent_vertrag.txt         # check a contract
 python -m rightscheck check my_contract.pdf --json                  # structured JSON
-export ANTHROPIC_API_KEY=...                                        # optional
+export GROQ_API_KEY=...        # free key from console.groq.com (or ANTHROPIC_API_KEY)
+python -m rightscheck agent "Is this okay? Write my landlord a message." --file samples/wg_mietvertrag.txt --trace
 python -m rightscheck ask "Was passiert wenn ich krank bin?" --ai --lang Deutsch
 pytest                                                              # run the tests
 ```
