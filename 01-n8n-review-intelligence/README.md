@@ -38,6 +38,14 @@ Two things normally cost money here: n8n Cloud and the OpenAI key. Both have fre
 - The model is set in the "Normalize & Validate" and "Build Weekly Stats" nodes (`openai/gpt-oss-120b`). If Groq has renamed or removed it, pick another model from the list at console.groq.com and change it there. If you get an error about `response_format`, delete that line in "Normalize & Validate"; the parse step already handles messy output.
 - Free tiers have rate limits. Fine for testing with the sample reviews, not for thousands of reviews.
 
+## Google Sheets on self-hosted n8n
+The one-click "Sign in with Google" only exists on n8n Cloud. Self-hosted needs your own Google OAuth app (free, about 20 min):
+1. Google Cloud Console: create a project, enable **Google Sheets API** and **Google Drive API**
+2. Google Auth Platform: app name, audience **External** (stays in testing mode), add yourself as **test user**
+3. Clients → Create → **Web application**, redirect URI `http://localhost:5678/rest/oauth2-credential/callback`
+4. Paste Client ID and Client Secret into the n8n *Google Sheets OAuth2* credential → Sign in with Google. "Google hasn't verified this app" is expected for your own test app → Continue
+5. In both Sheets nodes, pick the tab **From list** instead of typing its name (avoids typos)
+
 ## Setup (about 15 minutes)
 1. n8n Cloud trial or self-hosted (`docker run -it --rm -p 5678:5678 n8nio/n8n`)
 2. *Workflows → Import from File →* `workflow.json`
@@ -53,8 +61,8 @@ Two things normally cost money here: n8n Cloud and the OpenAI key. Both have fre
 
 `sample_reviews.json` contains 5 test reviews: a German pickup complaint, a positive English review, a German legal threat about a damage charge, an app bug, and a safety issue.
 
-## Results (real run, 8 Nov 2026)
-Self-hosted n8n (Docker) + Groq free tier, model `openai/gpt-oss-120b`, the 5 reviews from `sample_reviews.json`. Google Sheets and Slack were switched off for this test (not connected yet); everything else ran for real.
+## Results (real runs, 8 and 11 Nov 2026)
+Self-hosted n8n (Docker) + Groq free tier, model `openai/gpt-oss-120b`, the 5 reviews from `sample_reviews.json`. First run (8 Nov) without Google Sheets; second run (11 Nov) with **Google Sheets connected**. Slack and the Gmail send step are not connected.
 
 | Review | AI result | Escalated |
 |---|---|---|
@@ -67,6 +75,9 @@ Self-hosted n8n (Docker) + Groq free tier, model `openai/gpt-oss-120b`, the 5 re
 - Escalation: 5/5 as expected. Reply language matched the review: 5/5.
 - Category: 4/5 ideal. The brake review was labelled `car_condition`; `safety` would have been better. It was still escalated because urgency was high.
 - One reply draft contained a placeholder (`[phone/email]`). That's why drafts go to a human before anything is posted.
+- **Google Sheets (11 Nov):** all 5 reviews were appended to the sheet; the weekly flow's *Read Reviews* step read the same 5 rows back.
+- **Weekly briefing (11 Nov):** the flow ran up to the finished email (subject *"Review briefing 2026-11-11: 5 reviews, avg 2.40"*, the correct average of 1+5+2+3+1). Groq wrote the summary, e.g. *"Customer satisfaction fell to 2.4 / 5, driven by long pickup waits and unaddressed safety alerts"*. Weak spot: it counted 2 "pickup wait" complaints, but one of those two reviews was positive. The stats step should pass only negative reviews per category to the AI.
+- On 11 Nov the brake review was labelled `safety` (on 8 Nov: `car_condition`). Same input, different label: LLM output isn't fully deterministic, which is why the validation step exists.
 - First run failed with `401 Invalid API Key` (credential typo). The fallback kicked in as designed: the review was still answered, logged and flagged instead of being lost.
 
 ## Next steps
