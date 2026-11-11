@@ -1,0 +1,6 @@
+task,follow_up_prompts,readability_1_5,minutes_to_passing,comment
+01_iban_validation,0,,,"Passed first try. Readability left for the human reviewer (no self-scoring)."
+02_fix_invoice_bug,0,,,"Passed first try. Switched to Decimal + ROUND_HALF_UP, discount before VAT, no mutable default."
+03_safe_order_query,0,,,"Passed first try. Two fixed parameterised queries, no SQL built from input."
+04_retry_backoff,0,,,"Passed first try."
+05_sales_report,0,,,"Passed first try."
