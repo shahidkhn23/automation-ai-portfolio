@@ -19,7 +19,7 @@ Projects 01–04 are built around one fictional company, **Rentora** (car rental
 | 02 | [Event Lead Autopilot](02-zapier-event-lead-autopilot) | Zapier, AI by Zapier, Google Forms/Sheets/Calendar, Gmail, Slack | Manual sign-up handling, generic emails, sales hears about hot leads too late |
 | 03 | [Rentora Support Agent](https://github.com/shahidkhn23/rentora-support-agent) | Python, Claude API, tool calling, BM25 retrieval, 20 evals | Support questions about policies, availability and bookings in DE/EN, without leaking customer data |
 | 04 | [Review Insights on Real Data](04-review-insights-real-data) | Python, Claude API (optional) | Understand a company's customers from its public reviews |
-| 05 | [Student Rights Check](https://github.com/shahidkhn23/student-rights-check) | Python, rule engine, BM25 retrieval, AI agent mode, 57 tests | Students in Germany sign contracts they don't understand and don't know their rights |
+| 05 | [Student Rights Check](https://github.com/shahidkhn23/student-rights-check) | Python, rule engine, BM25 retrieval, AI agent mode, 58 tests | Students in Germany sign contracts they don't understand and don't know their rights |
 | 06 | [Coding Assistant Evaluation](06-coding-assistant-eval) | Python, hidden tests, security scan, scoring rubric | Choosing an AI coding assistant for a company by evidence, not by feel |
 
 ## Quality
