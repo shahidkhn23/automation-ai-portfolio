@@ -8,23 +8,23 @@ Six projects in automation and applied AI, with a focus on **making AI reliable*
 
 Short on time? Look at these two:
 
-- **[05 Student Rights Check](05-student-rights-check)**: an AI agent that checks students' contracts and answers questions about their rights in Germany. It may only cite laws from 50 hand-verified rules, and this is enforced in code.
-- **[03 Rentora Support Agent](03-ai-support-agent)**: a bilingual support agent with tool calling, a privacy check inside the tool, and 20 evals including prompt-injection attacks. There's a 28-second demo video.
+- **[05 Student Rights Check](https://github.com/shahidkhn23/student-rights-check)**: an AI agent that checks students' contracts and answers questions about their rights in Germany. It may only cite laws from 50 hand-verified rules, and this is enforced in code.
+- **[03 Rentora Support Agent](https://github.com/shahidkhn23/rentora-support-agent)**: a bilingual support agent with tool calling, a privacy check inside the tool, and 20 evals including prompt-injection attacks. There's a 28-second demo video.
 
-Projects 01–04 are built around one fictional company, **Rentora** (car rental, Germany): the support agent answers customers, the n8n flow listens to what they say in reviews, the Zapier flow turns event sign-ups into leads, and project 04 applies the review analysis to real public reviews. Project 05 checks contracts and answers questions about students' rights in Germany. Project 06 compares AI coding assistants on the same tasks with hidden tests.
+Projects 01–04 are built around one fictional company, **Rentora** (car rental, Germany): the support agent answers customers, the n8n flow listens to what they say in reviews, the Zapier flow turns event sign-ups into leads, and project 04 applies the review analysis to real public reviews. Project 05 checks contracts and answers questions about students' rights in Germany. Project 06 compares AI coding assistants on the same tasks with hidden tests. Projects 03 and 05 live in their own repositories.
 
 | # | Project | Tools | Problem it solves |
 |---|---|---|---|
 | 01 | [Customer Review Intelligence](01-n8n-review-intelligence) | n8n, LLM via Groq or OpenAI, Google Sheets, Slack, Gmail | Bilingual reviews read by hand, urgent ones missed, no weekly insight |
 | 02 | [Event Lead Autopilot](02-zapier-event-lead-autopilot) | Zapier, AI by Zapier, Google Forms/Sheets/Calendar, Gmail, Slack | Manual sign-up handling, generic emails, sales hears about hot leads too late |
-| 03 | [Rentora Support Agent](03-ai-support-agent) | Python, Claude API, tool calling, BM25 retrieval, 20 evals | Support questions about policies, availability and bookings in DE/EN, without leaking customer data |
+| 03 | [Rentora Support Agent](https://github.com/shahidkhn23/rentora-support-agent) | Python, Claude API, tool calling, BM25 retrieval, 20 evals | Support questions about policies, availability and bookings in DE/EN, without leaking customer data |
 | 04 | [Review Insights on Real Data](04-review-insights-real-data) | Python, Claude API (optional) | Understand a company's customers from its public reviews |
-| 05 | [Student Rights Check](05-student-rights-check) | Python, rule engine, BM25 retrieval, AI agent mode, 57 tests | Students in Germany sign contracts they don't understand and don't know their rights |
+| 05 | [Student Rights Check](https://github.com/shahidkhn23/student-rights-check) | Python, rule engine, BM25 retrieval, AI agent mode, 57 tests | Students in Germany sign contracts they don't understand and don't know their rights |
 | 06 | [Coding Assistant Evaluation](06-coding-assistant-eval) | Python, hidden tests, security scan, scoring rubric | Choosing an AI coding assistant for a company by evidence, not by feel |
 
 ## Quality
 
-Every push runs the test suites in CI: unit tests and 20 offline evals for the support agent (including 5 prompt-injection and data-leak attacks), 57 tests for Student Rights Check, a smoke test of the review tool, and a self-test proving the coding-assistant harness tells correct code from broken code.
+Every push runs checks in CI. In this repo: a smoke test of the review tool and a self-test proving the coding-assistant harness tells correct code from broken code. The support agent (unit tests and 20 offline evals, including 5 prompt-injection and data-leak attacks) and Student Rights Check (58 tests) run their own CI in their repositories.
 
 ## Design decisions
 
