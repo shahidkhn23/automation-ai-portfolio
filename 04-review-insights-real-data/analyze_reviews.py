@@ -5,7 +5,7 @@ Usage:
     python analyze_reviews.py data/reviews.csv --company "Rentora" --lang en
 
 Classification:
-    - With ANTHROPIC_API_KEY set: each review is classified by Claude (better quality).
+    - With LLM_API_KEY, LLM_BASE_URL and LLM_MODEL set: each review is classified by a language model (better quality).
     - Without a key: keyword rules (German + English). The report says which mode was used.
 
 Input columns (see data/reviews_template.csv): date, source, rating, text
@@ -88,19 +88,19 @@ def classify_rules(review):
     return {"categories": cats or ["other"], "sentiment": sentiment, "summary": ""}
 
 
-def classify_claude(review, key):
+def classify_llm(review, key, base_url, model):
     prompt = (
         "Classify this car rental customer review. Return ONLY JSON with keys: "
         f"categories (list, 1-3 of {list(CATEGORIES)}), sentiment (positive|neutral|negative), "
         "summary (max 12 words, English).\n\n"
         f"Rating: {review['rating']}\nReview: {review['text'][:3000]}"
     )
-    body = json.dumps({"model": os.getenv("ANTHROPIC_MODEL", "claude-sonnet-5-5"), "max_tokens": 200,
+    body = json.dumps({"model": model, "max_tokens": 200,
                        "messages": [{"role": "user", "content": prompt}]}).encode()
-    req = urllib.request.Request("https://api.anthropic.com/v1/messages", data=body, method="POST", headers={
-        "x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json"})
+    req = urllib.request.Request(base_url.rstrip("/") + "/chat/completions", data=body, method="POST", headers={
+        "Authorization": f"Bearer {key}", "Content-Type": "application/json", "User-Agent": "review-insights/1.0"})
     with urllib.request.urlopen(req, timeout=60) as resp:
-        text = json.loads(resp.read())["content"][0]["text"]
+        text = json.loads(resp.read())["choices"][0]["message"]["content"]
     data = json.loads(text[text.find("{"): text.rfind("}") + 1])
     cats = [c for c in data.get("categories", []) if c in CATEGORIES] or ["other"]
     sent = data.get("sentiment") if data.get("sentiment") in ("positive", "neutral", "negative") else "neutral"
@@ -108,17 +108,18 @@ def classify_claude(review, key):
 
 
 def classify_all(reviews):
-    key = os.getenv("ANTHROPIC_API_KEY")
+    key, base_url, model = (os.getenv(n) for n in ("LLM_API_KEY", "LLM_BASE_URL", "LLM_MODEL"))
+    key = key if (key and base_url and model) else None
     if reviews and all(r.get("checked") for r in reviews):
         for r in reviews:
             if not r["sentiment"]:
                 r["sentiment"] = classify_rules(r)["sentiment"]
         return "von Hand gelesen und eingeordnet / labelled by hand"
-    mode = "Claude API" if key else "keyword rules / Stichwortregeln"
+    mode = "language model" if key else "keyword rules / Stichwortregeln"
     for i, r in enumerate(reviews, 1):
         if key:
             try:
-                r.update(classify_claude(r, key))
+                r.update(classify_llm(r, key, base_url, model))
                 continue
             except Exception as exc:  # keep going, mark the review
                 print(f"  review {i}: AI failed ({exc}), using rules", file=sys.stderr)

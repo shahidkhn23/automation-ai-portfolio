@@ -2,7 +2,7 @@
 
 Turns real public customer reviews of a company into a one-page insight report: what customers complain about most, with numbers, examples and improvement ideas.
 
-Python only, nothing to install. Works offline (keyword rules) or with Claude for better classification.
+Python only, nothing to install. Works offline (keyword rules) or with a language model for better classification.
 
 ## How it works
 
@@ -23,7 +23,7 @@ Python only, nothing to install. Works offline (keyword rules) or with Claude fo
 python analyze_reviews.py data/reviews.csv --company "Rentora"            # German report
 python analyze_reviews.py data/reviews.csv --company "Rentora" --lang en  # English report
 ```
-With a Claude API key (`ANTHROPIC_API_KEY`), each review is classified by AI, which handles sarcasm and mixed topics much better. The report says which mode was used.
+With a chat-API key (`LLM_API_KEY`, `LLM_BASE_URL`, `LLM_MODEL`), each review is classified by AI, which handles sarcasm and mixed topics much better. The report says which mode was used.
 
 ### Options: hand-checked labels, deep dive and ideas
 - **Hand-checked labels:** columns `sentiment` and `categories` (e.g. `card_payment|car_availability`) in the CSV. If every row has them, the tool uses these labels instead of guessing, and the report says so.
