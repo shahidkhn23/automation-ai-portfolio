@@ -1,7 +1,7 @@
 """Scores code written by AI coding assistants on the same tasks with hidden tests.
 
     python evaluate.py --self-test                 check the harness with reference and broken solutions
-    python evaluate.py submissions/copilot         score one assistant
+    python evaluate.py submissions/assistant-b         score one assistant
     python evaluate.py submissions/*               score several and print a comparison table
 
 A submission folder holds one file per task: <task_id>.py (e.g. 01_iban_validation.py).

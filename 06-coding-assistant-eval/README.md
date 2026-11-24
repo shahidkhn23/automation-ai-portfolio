@@ -1,6 +1,6 @@
 # Coding Assistant Evaluation
 
-A reproducible way to compare AI coding assistants (e.g. GitHub Copilot, Claude Code, ChatGPT) on the **same tasks**, with **hidden tests**, a **security scan** and an **enterprise-fit rubric**, instead of judging them by feel.
+A reproducible way to compare AI coding assistants (any IDE assistant or chat model) on the **same tasks**, with **hidden tests**, a **security scan** and an **enterprise-fit rubric**, instead of judging them by feel.
 
 The question a company actually has is not "which assistant is smartest?" but: *which one writes correct, secure code for our kind of work, and can be run in a controlled, governed way?* This project turns that into numbers.
 
@@ -51,29 +51,29 @@ This runs in CI on every push.
 ## Running a comparison
 
 1. Give each assistant the `PROMPT.md` of every task in a fresh session.
-2. Save the code unchanged as `submissions/<assistant>/<task>.py`, e.g. `submissions/copilot/01_iban_validation.py`.
+2. Save the code unchanged as `submissions/<assistant>/<task>.py`, e.g. `submissions/assistant-b/01_iban_validation.py`.
 3. Record follow-up prompts, time and readability in `submissions/<assistant>/notes.csv` (see `RUBRIC.md`).
 4. Score:
 
 ```bash
-python evaluate.py submissions/copilot submissions/claude-code --json results.json
+python evaluate.py submissions/assistant-a submissions/assistant-b --json results.json
 ```
 ```
 Assistant             Tasks solved  Tests passed  Security flags
-copilot                     …/5             …%               …
-claude-code                 …/5             …%               …
+assistant-a                 …/5             …%               …
+assistant-b                 …/5             …%               …
 ```
 
 ## Results so far
 
 | Assistant | Tasks solved | Hidden tests passed | Security flags | Follow-up prompts |
 |---|---|---|---|---|
-| Claude (Opus 5.5, 11 Nov 2026) | 5/5 | 31/31 (100 %) | 0 | 0 |
-| GitHub Copilot | _pending_ | | | |
+| Assistant A (chat model, 11 Nov 2026) | 5/5 | 31/31 (100 %) | 0 | 0 |
+| Assistant B (IDE assistant) | _pending_ | | | |
 
-How the Claude submission was made: the model got only the five `PROMPT.md` files, never `test_task.py` or `reference/`, and each answer was saved unchanged in one attempt. Readability is left blank in `notes.csv` because a human reviewer scores it, not the model itself.
+How the Assistant A submission was made: the model got only the five `PROMPT.md` files, never `test_task.py` or `reference/`, and each answer was saved unchanged in one attempt. Readability is left blank in `notes.csv` because a human reviewer scores it, not the model itself.
 
-**Caveat:** the tasks and hidden tests were also written with Claude's help, so Claude may have a home advantage (it may anticipate the same edge cases it would test for). The comparison against Copilot and a human review of readability are what make the result meaningful.
+**Caveat:** the tasks and hidden tests were also written with help from an AI assistant, so a model from that family may have a home advantage (it may anticipate the same edge cases it would test for). The comparison against a second assistant and a human review of readability are what make the result meaningful.
 
 ## Design decisions
 

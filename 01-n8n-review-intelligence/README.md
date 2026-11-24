@@ -30,12 +30,15 @@ Every Monday 08:00: reads the last 7 days from the sheet → counts by sentiment
 - **Human in the loop**: AI drafts replies, a person sends them
 - Cheap model for classification; costs a fraction of a cent per review
 
+## Set the model first
+Both workflow files use placeholders so they work with any chat-completions API. In the "Call LLM" style HTTP nodes replace `https://YOUR-LLM-HOST/v1/chat/completions` with your provider's URL, and in "Normalize & Validate" and "Build Weekly Stats" replace `YOUR-MODEL` with a model name from that provider.
+
 ## Run it for free
 Two things normally cost money here: n8n Cloud and the model API key. Both have free alternatives:
 - **n8n:** the self-hosted Community edition is free. Install Docker Desktop, then run
   `docker run -it --rm -p 5678:5678 -v n8n_data:/home/node/.n8n n8nio/n8n` and open http://localhost:5678.
 - **AI model:** import **`workflow-free.json`** instead of `workflow.json`. It calls a chat API that has a free tier without a credit card. Create a key there and use it in a *Header Auth* credential: name `Authorization`, value `Bearer <your key>`.
-- The model is set in the "Normalize & Validate" and "Build Weekly Stats" nodes (an open-weight 120B model). If the provider has renamed or removed it, pick another model from its model list and change it there. If you get an error about `response_format`, delete that line in "Normalize & Validate"; the parse step already handles messy output.
+- The model is set in the "Normalize & Validate" and "Build Weekly Stats" nodes. Pick one from your provider's model list and change it there. If you get an error about `response_format`, delete that line in "Normalize & Validate"; the parse step already handles messy output.
 - Free tiers have rate limits. Fine for testing with the sample reviews, not for thousands of reviews.
 
 ## Google Sheets on self-hosted n8n
