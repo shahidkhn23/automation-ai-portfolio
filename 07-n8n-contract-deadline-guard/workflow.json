@@ -1,0 +1,95 @@
+{
+  "name": "Contract Deadline Guard",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Contract Deadline Guard\nPOST a contract text to this webhook:\n`{\"text\": \"...\"}`\n\nThe flow finds the notice period and end date, works out the last day to cancel and returns it together with a calendar file (.ics) that reminds you 14 days before.\n\nNo account or key needed. General information, not legal advice.",
+        "height": 260,
+        "width": 420
+      },
+      "id": "note",
+      "name": "Read me",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "contract-deadlines",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        300
+      ],
+      "webhookId": "contract-deadline-guard"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "// Finds the notice period and end date in a contract text (German or English),\n// works out the last day to cancel, and builds a calendar file with a reminder.\n// The same code runs inside the n8n Code node (see build_workflow.py) and in test.js.\n\nconst DATE = \"(\\\\d{1,2}\\\\.\\\\d{1,2}\\\\.\\\\d{4}|\\\\d{4}-\\\\d{2}-\\\\d{2})\";\n\nfunction parseDate(s) {\n  let m = s.match(/(\\d{1,2})\\.(\\d{1,2})\\.(\\d{4})/);\n  if (m) return new Date(Date.UTC(+m[3], +m[2] - 1, +m[1]));\n  m = s.match(/(\\d{4})-(\\d{2})-(\\d{2})/);\n  return m ? new Date(Date.UTC(+m[1], +m[2] - 1, +m[3])) : null;\n}\n\nfunction minusMonths(d, n) {\n  const y = d.getUTCFullYear(), mo = d.getUTCMonth() - n, day = d.getUTCDate();\n  const lastDay = new Date(Date.UTC(y, mo + 1, 0)).getUTCDate();\n  return new Date(Date.UTC(y, mo, Math.min(day, lastDay)));\n}\n\nconst iso = (d) => d.toISOString().slice(0, 10);\n\nfunction buildIcs(title, date, note) {\n  const d = iso(date).replace(/-/g, \"\");\n  const stamp = new Date().toISOString().replace(/[-:]/g, \"\").slice(0, 15) + \"Z\";\n  return [\"BEGIN:VCALENDAR\", \"VERSION:2.0\", \"PRODID:-//contract-deadline-guard//EN\",\n    \"BEGIN:VEVENT\", `UID:${d}-cancel@contract-deadline-guard`, `DTSTAMP:${stamp}`,\n    `DTSTART;VALUE=DATE:${d}`, `SUMMARY:${title}`, `DESCRIPTION:${note}`,\n    \"BEGIN:VALARM\", \"ACTION:DISPLAY\", \"TRIGGER:-P14D\", `DESCRIPTION:${title} in 14 days`, \"END:VALARM\",\n    \"END:VEVENT\", \"END:VCALENDAR\"].join(\"\\r\\n\");\n}\n\nfunction analyse(text, today) {\n  const now = today ? parseDate(today) : new Date();\n  const warnings = [];\n  const out = { notice_period: null, end_date: null, auto_renewal: false, cancel_by: null,\n                days_left: null, warnings, ics: null };\n\n  const n = text.match(/(Kündigungsfrist|notice period|notice of)[^.\\n]{0,80}?(\\d+)\\s*(Monat\\w*|Woche\\w*|month\\w*|week\\w*)/i);\n  if (n) out.notice_period = `${n[2]} ${n[3]}`;\n  const e = text.match(new RegExp(\n    \"(befristet bis|Mietende|Vertragsende|Laufzeit bis|endet am|ends on|fixed term until|until)[^\\\\d]{0,30}\" + DATE, \"i\"));\n  if (e) out.end_date = iso(parseDate(e[2]));\n  out.auto_renewal = /(verlängert sich|automatisch[^.]{0,40}verlänger|renews automatically|auto-?renew)/i.test(text);\n\n  if (!n) warnings.push(\"No notice period found. Check the contract by hand.\");\n  if (!e) warnings.push(\"No end date found. Check the contract by hand.\");\n  if (n && e) {\n    const amount = +n[2], unit = /^m/i.test(n[3]) ? \"m\" : \"w\";\n    const end = parseDate(out.end_date);\n    const cancelBy = unit === \"m\" ? minusMonths(end, amount) : new Date(end.getTime() - amount * 7 * 86400000);\n    out.cancel_by = iso(cancelBy);\n    out.days_left = Math.ceil((cancelBy - now) / 86400000);\n    if (out.days_left < 0) warnings.push(\"The last day to cancel has already passed. Check what the contract says about renewal.\");\n    if (out.auto_renewal) warnings.push(\"The contract renews automatically if you do not cancel in time.\");\n    out.ics = buildIcs(\"Last day to cancel the contract\", cancelBy,\n      `Notice period ${out.notice_period}, contract ends ${out.end_date}. Information, not legal advice.`);\n  }\n  return out;\n}\n\nconst item = $input.first().json;\nconst body = item.body || item;\nreturn [{ json: analyse(String(body.text || \"\"), body.today) }];\n"
+      },
+      "id": "extract",
+      "name": "Find deadlines and build calendar file",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        260,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        520,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Find deadlines and build calendar file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find deadlines and build calendar file": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

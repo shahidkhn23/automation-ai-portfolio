@@ -9,6 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -20,3 +23,7 @@ jobs:
       - name: Coding assistant eval – harness self-test
         working-directory: 06-coding-assistant-eval
         run: python evaluate.py --self-test
+
+      - name: Contract deadline guard – logic tests
+        working-directory: 07-n8n-contract-deadline-guard
+        run: node test.js

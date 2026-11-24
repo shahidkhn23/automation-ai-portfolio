@@ -2,7 +2,7 @@
 
 [![tests](https://github.com/shahidkhn23/automation-ai-portfolio/actions/workflows/tests.yml/badge.svg)](https://github.com/shahidkhn23/automation-ai-portfolio/actions/workflows/tests.yml)
 
-Six projects in automation and applied AI, with a focus on **making AI reliable**: validated outputs, guardrails in code, and evaluations that measure whether things actually work.
+Seven projects in automation and applied AI, with a focus on **making AI reliable**: validated outputs, guardrails in code, and evaluations that measure whether things actually work.
 
 ## Start here
 
@@ -21,6 +21,7 @@ Projects 01–04 are built around one fictional company, **Rentora** (car rental
 | 04 | [Review Insights on Real Data](04-review-insights-real-data) | Python, LLM API (optional) | Understand a company's customers from its public reviews |
 | 05 | [Student Rights Check](https://github.com/shahidkhn23/student-rights-check) | Python, rule engine, BM25 retrieval, AI agent mode, 360 tests | Students in Germany sign contracts they don't understand and don't know their rights |
 | 06 | [Coding Assistant Evaluation](06-coding-assistant-eval) | Python, hidden tests, security scan, scoring rubric | Choosing an AI coding assistant for a company by evidence, not by feel |
+| 07 | [Contract Deadline Guard](07-n8n-contract-deadline-guard) | n8n, webhook, JavaScript, calendar (.ics) | Missing the last day to cancel a contract because the notice period is buried in the text |
 
 ## Quality
 
