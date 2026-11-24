@@ -13,7 +13,7 @@
       "parameters": {
         "width": 520,
         "height": 200,
-        "content": "## Flow 1: Real-time review triage\nPOST a review to the webhook → AI classifies (DE/EN) → logged to Google Sheets → Slack alert if urgent → JSON response with reply draft.\n\nSetup: model API (free tier) = Header Auth credential (Authorization: Bearer gsk_...), Google Sheets + Slack OAuth. Sheet tab must be named **Reviews**."
+        "content": "## Flow 1: Real-time review triage\nPOST a review to the webhook → AI classifies (DE/EN) → logged to Google Sheets → Slack alert if urgent → JSON response with reply draft.\n\nSetup: model API (free tier) = Header Auth credential (Authorization: Bearer <your key>), Google Sheets + Slack OAuth. Sheet tab must be named **Reviews**."
       }
     },
     {
