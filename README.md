@@ -52,4 +52,4 @@ Free tiers have rate limits and change over time.
 
 ## License
 
-MIT, see [LICENSE](LICENSE).
+All rights reserved. The code is public so it can be read and evaluated, but it may not be copied, modified or used commercially without permission. See [LICENSE](LICENSE).

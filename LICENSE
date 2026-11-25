@@ -1,21 +1,17 @@
-MIT License
+Copyright (c) 2026 Shahid Saleem. All rights reserved.
 
-Copyright (c) 2026 Shahid Saleem
+The source code and data in this repository are published so that they can be
+read and evaluated, for example by recruiters, hiring managers and teachers.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Without prior written permission from the copyright holder you may NOT:
+  - copy, reproduce or redistribute the code or data, in whole or in part,
+  - modify it or create derivative works from it,
+  - use it in a commercial product or service,
+  - present it as your own work.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Running the public demo and reading the code for evaluation purposes is allowed.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+For permission requests, contact the author via the GitHub profile
+https://github.com/shahidkhn23.
+
+The software is provided "as is", without warranty of any kind.
