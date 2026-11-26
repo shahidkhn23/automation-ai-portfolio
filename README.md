@@ -19,13 +19,13 @@ Projects 01–04 are built around one fictional company, **Rentora** (car rental
 | 02 | [Event Lead Autopilot](02-zapier-event-lead-autopilot) | Zapier, AI by Zapier, Google Forms/Sheets/Calendar, Gmail, Slack | Manual sign-up handling, generic emails, sales hears about hot leads too late |
 | 03 | [Rentora Support Agent](https://github.com/shahidkhn23/rentora-support-agent) | Python, LLM API, tool calling, BM25 retrieval, 20 evals | Support questions about policies, availability and bookings in DE/EN, without leaking customer data |
 | 04 | [Review Insights on Real Data](04-review-insights-real-data) | Python, LLM API (optional) | Understand a company's customers from its public reviews |
-| 05 | [Student Rights Check](https://github.com/shahidkhn23/student-rights-check) | Python, rule engine, BM25 retrieval, AI agent mode, 360 tests | Students in Germany sign contracts they don't understand and don't know their rights |
+| 05 | [Student Rights Check](https://github.com/shahidkhn23/student-rights-check) | Python, rule engine, BM25 retrieval, AI agent mode, 1,208 tests | Students in Germany sign contracts they don't understand and don't know their rights |
 | 06 | [Coding Assistant Evaluation](06-coding-assistant-eval) | Python, hidden tests, security scan, scoring rubric | Choosing an AI coding assistant for a company by evidence, not by feel |
 | 07 | [Contract Deadline Guard](07-n8n-contract-deadline-guard) | n8n, webhook, JavaScript, calendar (.ics) | Missing the last day to cancel a contract because the notice period is buried in the text |
 
 ## Quality
 
-Every push runs checks in CI. In this repo: a smoke test of the review tool and a self-test proving the coding-assistant harness tells correct code from broken code. The support agent (unit tests and 20 offline evals, including 5 prompt-injection and data-leak attacks) and Student Rights Check (360 tests) run their own CI in their repositories.
+Every push runs checks in CI. In this repo: a smoke test of the review tool and a self-test proving the coding-assistant harness tells correct code from broken code. The support agent (unit tests and 20 offline evals, including 5 prompt-injection and data-leak attacks) and Student Rights Check (1,208 tests) run their own CI in their repositories.
 
 ## Design decisions
 
